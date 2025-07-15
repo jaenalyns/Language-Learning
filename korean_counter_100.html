@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Korean Numbers 1-100</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
+        
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: linear-gradient(135deg, #f5f5f0 0%, #e8e8e0 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        function playNumber(number, koreanText) {
+            // Visual feedback
+            const cards = document.querySelectorAll('.number-card');
+            const clickedCard = cards[Array.from(cards).findIndex(card => 
+                card.querySelector('.arabic-number').textContent == number
+            )];
+            
+            if (clickedCard) {
+                clickedCard.classList.add('audio-playing');
+                setTimeout(() => {
+                    clickedCard.classList.remove('audio-playing');
+                }, 1000);
+            }
+
+            // Use Web Speech API for pronunciation
+            if ('speechSynthesis' in window) {
+                // Cancel any ongoing speech
+                speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(koreanText);
+                
+                // Try to find a Korean voice
+                const voices = speechSynthesis.getVoices();
+                const koreanVoice = voices.find(voice => 
+                    voice.lang.includes('ko') || voice.lang.includes('KR')
+                );
+                
+                if (koreanVoice) {
+                    utterance.voice = koreanVoice;
+                }
+                
+                utterance.lang = 'ko-KR';
+                utterance.rate = 0.8; // Slightly slower for learning
+                utterance.pitch = 1;
+                
+                speechSynthesis.speak(utterance);
+            } else {
+                // Fallback message if speech synthesis not supported
+                console.log('Speech synthesis not supported');
+                alert(`Korean pronunciation: ${koreanText}`);
+            }
+        }
+
+        // Load voices when they become available
+        if ('speechSynthesis' in window) {
+            speechSynthesis.onvoiceschanged = function() {
+                // Voices are now loaded
+            };
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #FF8C00;
+            font-size: 3rem;
+            font-weight: 900;
+            text-shadow: 3px 3px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+        
+        .numbers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .number-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .number-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .number-card:active {
+            transform: translateY(-2px);
+        }
+        
+        .play-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.2rem;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+        
+        .number-card:hover .play-icon {
+            opacity: 1;
+        }
+        
+        .audio-playing {
+            background: rgba(255, 140, 0, 0.1) !important;
+            border: 2px solid #FF8C00;
+        }
+        
+        .arabic-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #FF8C00;
+            text-shadow: 2px 2px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000;
+            margin-bottom: 10px;
+        }
+        
+        .korean-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #FF8C00;
+            text-shadow: 2px 2px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000;
+            margin-bottom: 5px;
+        }
+        
+        .romanized {
+            font-size: 1.2rem;
+            color: #666;
+            font-weight: 400;
+            font-style: italic;
+        }
+        
+        .section-header {
+            grid-column: 1 / -1;
+            font-size: 2rem;
+            font-weight: 900;
+            color: #FF8C00;
+            text-shadow: 2px 2px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000;
+            margin: 30px 0 20px 0;
+            text-transform: uppercase;
+        }
+        
+        @media (max-width: 768px) {
+            .numbers-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .arabic-number {
+                font-size: 2rem;
+            }
+            
+            .korean-number {
+                font-size: 1.4rem;
+            }
+            
+            .romanized {
+                font-size: 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>한국어 숫자 1-100<br>Korean Numbers</h1>
+        
+        <div class="numbers-grid" id="numbersGrid">
+            <!-- Numbers will be generated by JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        const koreanNumbers = {
+            0: { korean: "영", romanized: "yeong" },
+            1: { korean: "하나", romanized: "hana" },
+            2: { korean: "둘", romanized: "dul" },
+            3: { korean: "셋", romanized: "set" },
+            4: { korean: "넷", romanized: "net" },
+            5: { korean: "다섯", romanized: "daseot" },
+            6: { korean: "여섯", romanized: "yeoseot" },
+            7: { korean: "일곱", romanized: "ilgop" },
+            8: { korean: "여덟", romanized: "yeodeol" },
+            9: { korean: "아홉", romanized: "ahop" },
+            10: { korean: "열", romanized: "yeol" },
+            11: { korean: "열하나", romanized: "yeol-hana" },
+            12: { korean: "열둘", romanized: "yeol-dul" },
+            13: { korean: "열셋", romanized: "yeol-set" },
+            14: { korean: "열넷", romanized: "yeol-net" },
+            15: { korean: "열다섯", romanized: "yeol-daseot" },
+            16: { korean: "열여섯", romanized: "yeol-yeoseot" },
+            17: { korean: "열일곱", romanized: "yeol-ilgop" },
+            18: { korean: "열여덟", romanized: "yeol-yeodeol" },
+            19: { korean: "열아홉", romanized: "yeol-ahop" },
+            20: { korean: "스무", romanized: "seumu" },
+            21: { korean: "스물하나", romanized: "seumul-hana" },
+            22: { korean: "스물둘", romanized: "seumul-dul" },
+            23: { korean: "스물셋", romanized: "seumul-set" },
+            24: { korean: "스물넷", romanized: "seumul-net" },
+            25: { korean: "스물다섯", romanized: "seumul-daseot" },
+            26: { korean: "스물여섯", romanized: "seumul-yeoseot" },
+            27: { korean: "스물일곱", romanized: "seumul-ilgop" },
+            28: { korean: "스물여덟", romanized: "seumul-yeodeol" },
+            29: { korean: "스물아홉", romanized: "seumul-ahop" },
+            30: { korean: "서른", romanized: "seoreun" },
+            31: { korean: "서른하나", romanized: "seoreun-hana" },
+            32: { korean: "서른둘", romanized: "seoreun-dul" },
+            33: { korean: "서른셋", romanized: "seoreun-set" },
+            34: { korean: "서른넷", romanized: "seoreun-net" },
+            35: { korean: "서른다섯", romanized: "seoreun-daseot" },
+            36: { korean: "서른여섯", romanized: "seoreun-yeoseot" },
+            37: { korean: "서른일곱", romanized: "seoreun-ilgop" },
+            38: { korean: "서른여덟", romanized: "seoreun-yeodeol" },
+            39: { korean: "서른아홉", romanized: "seoreun-ahop" },
+            40: { korean: "마흔", romanized: "maheun" },
+            41: { korean: "마흔하나", romanized: "maheun-hana" },
+            42: { korean: "마흔둘", romanized: "maheun-dul" },
+            43: { korean: "마흔셋", romanized: "maheun-set" },
+            44: { korean: "마흔넷", romanized: "maheun-net" },
+            45: { korean: "마흔다섯", romanized: "maheun-daseot" },
+            46: { korean: "마흔여섯", romanized: "maheun-yeoseot" },
+            47: { korean: "마흔일곱", romanized: "maheun-ilgop" },
+            48: { korean: "마흔여덟", romanized: "maheun-yeodeol" },
+            49: { korean: "마흔아홉", romanized: "maheun-ahop" },
+            50: { korean: "쉰", romanized: "swin" },
+            51: { korean: "쉰하나", romanized: "swin-hana" },
+            52: { korean: "쉰둘", romanized: "swin-dul" },
+            53: { korean: "쉰셋", romanized: "swin-set" },
+            54: { korean: "쉰넷", romanized: "swin-net" },
+            55: { korean: "쉰다섯", romanized: "swin-daseot" },
+            56: { korean: "쉰여섯", romanized: "swin-yeoseot" },
+            57: { korean: "쉰일곱", romanized: "swin-ilgop" },
+            58: { korean: "쉰여덟", romanized: "swin-yeodeol" },
+            59: { korean: "쉰아홉", romanized: "swin-ahop" },
+            60: { korean: "예순", romanized: "yesun" },
+            61: { korean: "예순하나", romanized: "yesun-hana" },
+            62: { korean: "예순둘", romanized: "yesun-dul" },
+            63: { korean: "예순셋", romanized: "yesun-set" },
+            64: { korean: "예순넷", romanized: "yesun-net" },
+            65: { korean: "예순다섯", romanized: "yesun-daseot" },
+            66: { korean: "예순여섯", romanized: "yesun-yeoseot" },
+            67: { korean: "예순일곱", romanized: "yesun-ilgop" },
+            68: { korean: "예순여덟", romanized: "yesun-yeodeol" },
+            69: { korean: "예순아홉", romanized: "yesun-ahop" },
+            70: { korean: "일흔", romanized: "ilheun" },
+            71: { korean: "일흔하나", romanized: "ilheun-hana" },
+            72: { korean: "일흔둘", romanized: "ilheun-dul" },
+            73: { korean: "일흔셋", romanized: "ilheun-set" },
+            74: { korean: "일흔넷", romanized: "ilheun-net" },
+            75: { korean: "일흔다섯", romanized: "ilheun-daseot" },
+            76: { korean: "일흔여섯", romanized: "ilheun-yeoseot" },
+            77: { korean: "일흔일곱", romanized: "ilheun-ilgop" },
+            78: { korean: "일흔여덟", romanized: "ilheun-yeodeol" },
+            79: { korean: "일흔아홉", romanized: "ilheun-ahop" },
+            80: { korean: "여든", romanized: "yeodeun" },
+            81: { korean: "여든하나", romanized: "yeodeun-hana" },
+            82: { korean: "여든둘", romanized: "yeodeun-dul" },
+            83: { korean: "여든셋", romanized: "yeodeun-set" },
+            84: { korean: "여든넷", romanized: "yeodeun-net" },
+            85: { korean: "여든다섯", romanized: "yeodeun-daseot" },
+            86: { korean: "여든여섯", romanized: "yeodeun-yeoseot" },
+            87: { korean: "여든일곱", romanized: "yeodeun-ilgop" },
+            88: { korean: "여든여덟", romanized: "yeodeun-yeodeol" },
+            89: { korean: "여든아홉", romanized: "yeodeun-ahop" },
+            90: { korean: "아흔", romanized: "aheun" },
+            91: { korean: "아흔하나", romanized: "aheun-hana" },
+            92: { korean: "아흔둘", romanized: "aheun-dul" },
+            93: { korean: "아흔셋", romanized: "aheun-set" },
+            94: { korean: "아흔넷", romanized: "aheun-net" },
+            95: { korean: "아흔다섯", romanized: "aheun-daseot" },
+            96: { korean: "아흔여섯", romanized: "aheun-yeoseot" },
+            97: { korean: "아흔일곱", romanized: "aheun-ilgop" },
+            98: { korean: "아흔여덟", romanized: "aheun-yeodeol" },
+            99: { korean: "아흔아홉", romanized: "aheun-ahop" },
+            100: { korean: "백", romanized: "baek" }
+        };
+
+        function playNumber(number, koreanText) {
+            // Visual feedback
+            const cards = document.querySelectorAll('.number-card');
+            const clickedCard = Array.from(cards).find(card => 
+                card.querySelector('.arabic-number')?.textContent == number
+            );
+            
+            if (clickedCard) {
+                clickedCard.classList.add('audio-playing');
+                setTimeout(() => {
+                    clickedCard.classList.remove('audio-playing');
+                }, 1000);
+            }
+
+            // Use Web Speech API for pronunciation
+            if ('speechSynthesis' in window) {
+                // Cancel any ongoing speech
+                speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(koreanText);
+                
+                // Try to find a Korean voice
+                const voices = speechSynthesis.getVoices();
+                const koreanVoice = voices.find(voice => 
+                    voice.lang.includes('ko') || voice.lang.includes('KR')
+                );
+                
+                if (koreanVoice) {
+                    utterance.voice = koreanVoice;
+                }
+                
+                utterance.lang = 'ko-KR';
+                utterance.rate = 0.8; // Slightly slower for learning
+                utterance.pitch = 1;
+                
+                speechSynthesis.speak(utterance);
+            } else {
+                // Fallback message if speech synthesis not supported
+                console.log('Speech synthesis not supported');
+                alert(`Korean pronunciation: ${koreanText}`);
+            }
+        }
+
+        function generateNumbers() {
+            const grid = document.getElementById('numbersGrid');
+            
+            // Add section headers and generate numbers
+            const sections = [
+                { start: 0, end: 19, title: "0-19" },
+                { start: 20, end: 39, title: "20-39" },
+                { start: 40, end: 59, title: "40-59" },
+                { start: 60, end: 79, title: "60-79" },
+                { start: 80, end: 100, title: "80-100" }
+            ];
+
+            sections.forEach(section => {
+                // Add section header
+                const header = document.createElement('div');
+                header.className = 'section-header';
+                header.textContent = section.title;
+                grid.appendChild(header);
+
+                // Add numbers in this section
+                for (let i = section.start; i <= section.end; i++) {
+                    const numberData = koreanNumbers[i];
+                    
+                    const card = document.createElement('div');
+                    card.className = 'number-card';
+                    card.onclick = () => playNumber(i, numberData.korean);
+                    
+                    card.innerHTML = `
+                        <div class="play-icon">🔊</div>
+                        <div class="arabic-number">${i}</div>
+                        <div class="korean-number">${numberData.korean}</div>
+                        <div class="romanized">${numberData.romanized}</div>
+                    `;
+                    
+                    grid.appendChild(card);
+                }
+            });
+        }
+
+        // Generate numbers when page loads
+        document.addEventListener('DOMContentLoaded', generateNumbers);
+    </script>
+</body>
+</html>
