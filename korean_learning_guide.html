@@ -112,9 +112,163 @@
             border-left: 4px solid #4CAF50;
             margin: 15px 0;
         }
+
+        /* Slide-out navigation menu */
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            height: 100vh;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            z-index: 1000;
+            transition: left 0.3s ease;
+            padding: 20px;
+            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .nav-menu.open {
+            left: 0;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .nav-menu h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            text-align: center;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .nav-item {
+            margin-bottom: 15px;
+        }
+
+        .nav-item a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 12px 15px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-item a:hover {
+            background: rgba(52, 152, 219, 0.3);
+            transform: translateX(5px);
+        }
+
+        .nav-item a.current {
+            background: rgba(52, 152, 219, 0.5);
+            border-left: 4px solid #3498db;
+        }
+
+        .nav-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            border: none;
+            padding: 12px 15px;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+            transition: all 0.3s ease;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .nav-toggle.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .nav-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+        }
+
+        .nav-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+
+        .nav-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
     </style>
 </head>
 <body>
+    <!-- Navigation Toggle Button -->
+    <button class="nav-toggle" onclick="toggleNav()">☰ Menu</button>
+
+    <!-- Overlay -->
+    <div class="overlay" onclick="closeNav()"></div>
+
+    <!-- Slide-out Navigation Menu -->
+    <nav class="nav-menu">
+        <button class="nav-close" onclick="closeNav()">×</button>
+        <h3>🇰🇷 Korean Learning</h3>
+        <div class="nav-item">
+            <a href="index.html">🏠 Home</a>
+        </div>
+        <div class="nav-item">
+            <a href="korean_learning_guide.html" class="current">📚 Korean Alphabet</a>
+        </div>
+        <div class="nav-item">
+            <a href="korean_native_numbers.html">🔢 Native Numbers</a>
+        </div>
+        <div class="nav-item">
+            <a href="korean_sino_numbers.html">🀄 Sino-Korean Numbers</a>
+        </div>
+        <div class="nav-item">
+            <a href="korean_survival_phrases.html">💬 Survival Phrases</a>
+        </div>
+        <div class="nav-item">
+            <a href="korean_grammar_structure.html">📝 Grammar Structure</a>
+        </div>
+        <div class="nav-item">
+            <a href="korean_verb_conjugation.html">⚡ Verb Conjugation</a>
+        </div>
+    </nav>
+
     <h1>Learn to Read Korean - Complete Guide</h1>
     
     <div class="container">
@@ -258,11 +412,72 @@
         <p><strong>Hope that helped!</strong></p>
     </div>
 
+    <!-- Navigation to Next Lesson -->
     <div style="text-align: center; margin: 30px 0; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-        <a href="https://claude.ai/public/artifacts/72c27090-93a0-486b-91b8-c49a32b4da6a" target="_blank" style="color: #0066cc; text-decoration: none; font-size: 18px;">
-            📚 Learn Korean Numbers 1 - 100
-        </a>
+        <h3 style="margin-bottom: 15px; color: #333;">📚 Continue Your Learning Journey</h3>
+        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+            <a href="korean_native_numbers.html" style="color: #0066cc; text-decoration: none; font-size: 16px; padding: 10px 20px; border: 2px solid #0066cc; border-radius: 8px; transition: all 0.3s ease;">
+                📚 Learn Native Korean Numbers
+            </a>
+            <a href="korean_sino_numbers.html" style="color: #e74c3c; text-decoration: none; font-size: 16px; padding: 10px 20px; border: 2px solid #e74c3c; border-radius: 8px; transition: all 0.3s ease;">
+                🀄 Learn Sino-Korean Numbers
+            </a>
+        </div>
     </div>
+
+    <script>
+        function toggleNav() {
+            const navMenu = document.querySelector('.nav-menu');
+            const overlay = document.querySelector('.overlay');
+            const navToggle = document.querySelector('.nav-toggle');
+            
+            navMenu.classList.add('open');
+            overlay.classList.add('active');
+            navToggle.classList.add('hidden');
+        }
+
+        function closeNav() {
+            const navMenu = document.querySelector('.nav-menu');
+            const overlay = document.querySelector('.overlay');
+            const navToggle = document.querySelector('.nav-toggle');
+            
+            navMenu.classList.remove('open');
+            overlay.classList.remove('active');
+            navToggle.classList.remove('hidden');
+        }
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            closeNav();
+        }
+
+        // Close navigation when clicking on overlay
+        document.querySelector('.overlay').addEventListener('click', closeNav);
+
+        // Close navigation when pressing Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeNav();
+            }
+        });
+
+        // Add hover effects to navigation buttons
+        document.querySelectorAll('a[href$=".html"]').forEach(link => {
+            if (link.style.border) {
+                link.addEventListener('mouseenter', function() {
+                    this.style.backgroundColor = this.style.color;
+                    this.style.color = 'white';
+                });
+                link.addEventListener('mouseleave', function() {
+                    this.style.backgroundColor = 'transparent';
+                    this.style.color = this.style.borderColor;
+                });
+            }
+        });
+    </script>
 
 </body>
 </html>
