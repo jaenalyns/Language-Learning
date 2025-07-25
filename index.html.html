@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Korean Learning Hub - Your Complete Guide</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 60px 40px;
+            border-radius: 25px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 140, 0, 0.1), transparent);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(30deg); }
+            50% { transform: translateX(100%) translateY(100%) rotate(30deg); }
+            100% { transform: translateX(-100%) translateY(-100%) rotate(30deg); }
+        }
+
+        .header h1 {
+            font-size: 4rem;
+            background: linear-gradient(135deg, #FF8C00, #e67e22);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            font-weight: 900;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 1.4rem;
+            color: #666;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .korean-flag {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            animation: wave 2s ease-in-out infinite;
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
+        }
+
+        /* Navigation Grid */
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .nav-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 140, 0, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .nav-card:hover::before {
+            left: 100%;
+        }
+
+        .nav-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-card .icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+        }
+
+        .nav-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-weight: 700;
+        }
+
+        .nav-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .nav-card .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #FF8C00, #e67e22);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 140, 0, 0.3);
+        }
+
+        .nav-card .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 140, 0, 0.4);
+        }
+
+        /* Color variations for cards */
+        .nav-card.alphabet { border-left: 5px solid #3498db; }
+        .nav-card.numbers { border-left: 5px solid #e74c3c; }
+        .nav-card.sino-numbers { border-left: 5px solid #9b59b6; }
+        .nav-card.phrases { border-left: 5px solid #2ecc71; }
+        .nav-card.grammar { border-left: 5px solid #f39c12; }
+        .nav-card.verbs { border-left: 5px solid #1abc9c; }
+
+        /* Features Section */
+        .features {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 50px 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .feature-item .icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .feature-item h4 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .feature-item p {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            color: white;
+            margin-top: 40px;
+        }
+
+        .footer p {
+            margin-bottom: 10px;
+        }
+
+        .footer a {
+            color: #FFD700;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .header p {
+                font-size: 1.1rem;
+            }
+            
+            .nav-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .nav-card {
+                padding: 30px 20px;
+            }
+            
+            .nav-card .icon {
+                font-size: 3rem;
+            }
+            
+            .nav-card h3 {
+                font-size: 1.5rem;
+            }
+            
+            .features {
+                padding: 30px 20px;
+            }
+            
+            .features h2 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Progress Indicators */
+        .progress-indicator {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        /* Beginner badge */
+        .difficulty-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .difficulty-badge.beginner { background: linear-gradient(135deg, #4CAF50, #45a049); }
+        .difficulty-badge.intermediate { background: linear-gradient(135deg, #FF8C00, #e67e22); }
+        .difficulty-badge.advanced { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="korean-flag">🇰🇷</div>
+            <h1>Korean Learning Hub</h1>
+            <p>Your comprehensive journey to mastering the Korean language</p>
+            <p style="font-size: 1.1rem; color: #888;">한국어 학습 허브에 오신 것을 환영합니다!</p>
+        </header>
+
+        <!-- Navigation Grid -->
+        <div class="nav-grid">
+            <!-- Korean Alphabet Card -->
+            <div class="nav-card alphabet">
+                <div class="difficulty-badge beginner">Beginner</div>
+                <div class="progress-indicator">1</div>
+                <span class="icon">📚</span>
+                <h3>Learn to Read Korean</h3>
+                <p>Master Hangul, the Korean alphabet system. Learn consonants, vowels, and syllable formation with interactive examples and practice exercises.</p>
+                <a href="korean_learning_guide.html" class="btn">Start Learning</a>
+            </div>
+
+            <!-- Native Korean Numbers Card -->
+            <div class="nav-card numbers">
+                <div class="difficulty-badge beginner">Beginner</div>
+                <div class="progress-indicator">2</div>
+                <span class="icon">🔢</span>
+                <h3>Native Korean Numbers</h3>
+                <p>Learn numbers 0-100 in native Korean with audio pronunciation, usage examples, and cultural context for when to use each system.</p>
+                <a href="korean_counter_100.html" class="btn">Count in Korean</a>
+            </div>
+
+            <!-- Sino-Korean Numbers Card -->
+            <div class="nav-card sino-numbers">
+                <div class="difficulty-badge beginner">Beginner</div>
+                <div class="progress-indicator">3</div>
+                <span class="icon">🀄</span>
+                <h3>Sino-Korean Numbers</h3>
+                <p>Master the Chinese-origin number system used for dates, money, phone numbers, and formal situations with detailed usage guidelines.</p>
+                <a href="sino_korean_numbers.html" class="btn">Learn Sino Numbers</a>
+            </div>
+
+            <!-- Survival Phrases Card -->
+            <div class="nav-card phrases">
+                <div class="difficulty-badge beginner">Beginner</div>
+                <div class="progress-indicator">4</div>
+                <span class="icon">💬</span>
+                <h3>Survival Phrases</h3>
+                <p>Essential Korean phrases for travelers and beginners. Includes introductions, directions, shopping, dining, and emergency situations.</p>
+                <a href="korean_survival_phrases.html" class="btn">Essential Phrases</a>
+            </div>
+
+            <!-- Grammar Structure Card -->
+            <div class="nav-card grammar">
+                <div class="difficulty-badge intermediate">Intermediate</div>
+                <div class="progress-indicator">5</div>
+                <span class="icon">📝</span>
+                <h3>Grammar Structure</h3>
+                <p>Understand Korean sentence structure, word order (SOV), particles, and how to form complex sentences with conjunctions.</p>
+                <a href="korean_grammar_structure.html" class="btn">Study Grammar</a>
+            </div>
+
+            <!-- Verb Conjugation Card -->
+            <div class="nav-card verbs">
+                <div class="difficulty-badge intermediate">Intermediate</div>
+                <div class="progress-indicator">6</div>
+                <span class="icon">⚡</span>
+                <h3>Verb Conjugation</h3>
+                <p>Master Korean verb forms across tenses (present, past, future) and politeness levels. Includes the essential "want" verb (싶다).</p>
+                <a href="korean_verb_conjugation.html" class="btn">Conjugate Verbs</a>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <section class="features">
+            <h2>Why Choose Our Korean Learning Hub?</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <span class="icon">🎯</span>
+                    <h4>Structured Learning</h4>
+                    <p>Progressive curriculum from basics to advanced concepts, designed for optimal learning flow.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">🔊</span>
+                    <h4>Audio Pronunciation</h4>
+                    <p>Native Korean pronunciation guides and audio playback for proper speaking practice.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">🎨</span>
+                    <h4>Visual Learning</h4>
+                    <p>Color-coded grammar explanations and interactive visual aids for better comprehension.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">📱</span>
+                    <h4>Mobile Friendly</h4>
+                    <p>Access your lessons anywhere with responsive design optimized for all devices.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">🌟</span>
+                    <h4>Cultural Context</h4>
+                    <p>Learn not just the language, but the cultural nuances and proper usage scenarios.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">🚀</span>
+                    <h4>Fast Progress</h4>
+                    <p>Efficient learning methods designed to get you speaking Korean quickly and confidently.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>🎓 Korean Learning Hub - Your Gateway to Korean Fluency</p>
+            <p>Created with ❤️ for Korean language learners worldwide</p>
+            <p><a href="#top">Back to Top</a> | <a href="mailto:contact@example.com">Contact Us</a></p>
+        </footer>
+    </div>
+
+    <script>
+        // Add smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add hover effects for cards
+        document.querySelectorAll('.nav-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add click tracking (optional)
+        document.querySelectorAll('.nav-card .btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                console.log('Navigating to:', this.getAttribute('href'));
+            });
+        });
+    </script>
+</body>
+</html>
