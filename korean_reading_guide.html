@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn to Read Korean - Complete Guide</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            flex: 1;
+            min-width: 300px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .consonant {
+            color: #000;
+            font-weight: bold;
+            font-size: 18px;
+            margin: 8px 0;
+        }
+        .consonant.blue { color: #0066cc; }
+        .consonant.red { color: #cc0000; }
+        .consonant.green { color: #009900; }
+        .consonant.black { color: #000; }
+        
+        .vowel {
+            color: #000;
+            font-weight: bold;
+            font-size: 18px;
+            margin: 8px 0;
+        }
+        .vowel.blue { color: #0066cc; }
+        .vowel.red { color: #cc0000; }
+        .vowel.green { color: #009900; }
+        .vowel.black { color: #000; }
+        
+        .word-example {
+            color: #0066cc;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .syllable-info {
+            background: #f0f8ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        
+        .practice-section {
+            background: #fff5f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        
+        .character-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .character-item {
+            text-align: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #fafafa;
+        }
+        
+        .korean-char {
+            font-size: 24px;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .romanization {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .tip {
+            background: #e8f5e8;
+            padding: 10px;
+            border-left: 4px solid #4CAF50;
+            margin: 15px 0;
+        }
+
+        /* Slide-out navigation menu */
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            height: 100vh;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            z-index: 1000;
+            transition: left 0.3s ease;
+            padding: 20px;
+            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .nav-menu.open {
+            left: 0;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .nav-menu h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            text-align: center;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .nav-item {
+            margin-bottom: 15px;
+        }
+
+        .nav-item a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 12px 15px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-item a:hover {
+            background: rgba(52, 152, 219, 0.3);
+            transform: translateX(5px);
+        }
+
+        .nav-item a.current {
+            background: rgba(52, 152, 219, 0.5);
+            border-left: 4px solid #3498db;
+        }
+
+        .nav-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            border: none;
+            padding: 12px 15px;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+            transition: all 0.3s ease;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .nav-toggle.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .nav-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+        }
+
+        .nav-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+
+        .nav-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Toggle Button -->
+    <button class="nav-toggle" onclick="toggleNav()">☰ Menu</button>
+
+    <!-- Overlay -->
+    <div class="overlay" onclick="closeNav()"></div>
+
+    <!-- Slide-out Navigation Menu -->
+    <nav class="nav-menu">
+        <button class="nav-close" onclick="closeNav()">×</button>
+        <h3>🇰🇷 Korean Learning</h3>
+        <div class="nav-item">
+            <a href="index.html">🏠 Home</a>
+        </div>
+        <div class="nav-item">
+            <a href="korean_learning_guide.html" class="current">📚 Korean Alphabet</a>
+        </div>
+        <div class="nav-item">
+            <a href="korean_native_numbers.html">🔢 Native Numbers</a>
+        </div>
+        <div class="nav-item">
+            <a href="korean_sino_numbers.html">🀄 Sino-Korean Numbers</a>
+        </div>
+        <div class="nav-item">
+            <a href="korean_survival_phrases.html">💬 Survival Phrases</a>
+        </div>
+        <div class="nav-item">
+            <a href="korean_grammar_structure.html">📝 Grammar Structure</a>
+        </div>
+        <div class="nav-item">
+            <a href="korean_verb_conjugation.html">⚡ Verb Conjugation</a>
+        </div>
+    </nav>
+
+    <h1>Learn to Read Korean - Complete Guide</h1>
+    
+    <div class="container">
+        <div class="section">
+            <h2>Consonants</h2>
+            <div class="consonant blue">ㅂ <strong>B</strong>ucket</div>
+            <div class="consonant blue">ㄴ <strong>N</strong>ose</div>
+            <div class="consonant red">ㄱ <strong>G</strong>un (also ㄱ)</div>
+            <div class="consonant red">ㅁ <strong>M</strong>outh</div>
+            <div class="consonant red">ㅇ <strong>N</strong>othing</div>
+            <div class="consonant red">ㅅ <strong>S</strong>ki Mountain</div>
+            <div style="font-size: 12px; color: #666; margin-left: 20px; margin-top: -5px;">
+                *At the end of a character it makes a "t" sound
+            </div>
+            <div class="consonant green">ㅈ <strong>J</strong>oy</div>
+            <div class="consonant green">ㅊ <strong>C</strong>hampion</div>
+            <div class="consonant green">ㄹ <strong>R</strong>attlesnake</div>
+            <div style="font-size: 12px; color: #666; margin-left: 20px; margin-top: -5px;">
+                *At the end of a character it makes an "L" sound
+            </div>
+            <div class="consonant black">ㄷ <strong>D</strong>oor</div>
+            <div class="consonant black">ㅌ <strong>T</strong>iger</div>
+            <div class="consonant black">ㅍ <strong>P</strong>art II</div>
+            <div class="consonant black">ㅋ <strong>K</strong>ite</div>
+            <div class="consonant black">ㅎ <strong>H</strong>ole</div>
+            
+            <div class="tip">
+                <strong>Memory Tip:</strong> Each consonant is organized into one of the consonant and vowel systems. Just like other languages, you need to memorize the shape of each letter as a symbol for every sound possible.
+            </div>
+            
+            <div class="tip">
+                <strong>Special Note about ㅇ:</strong> When ㅇ is at the beginning of a character it's nothing (silent), and when it's at the end it makes an "ng" sound.
+            </div>
+            
+            <div class="tip">
+                <strong>Aspirated Consonants:</strong> ㅋ becomes "k" and ㅌ becomes "t" - kind of like an addition to ㄱ → g and ㄷ → d. These are the voiced counterparts of the "aspirated" (breathy) versions of the basic consonants.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Vowels</h2>
+            <div style="text-align: center; margin-bottom: 20px;">
+                <a href="https://www.youtube.com/shorts/sJc_k2fybF4?feature=share" target="_blank" style="color: #0066cc; text-decoration: none; font-size: 16px;">
+                    📺 Watch the Video Tutorial
+                </a>
+            </div>
+            <div class="vowel blue">ㅣ tr<strong>ee</strong> (<strong>ee</strong>)</div>
+            <div class="vowel blue">ㅏ <strong>a</strong>fter (<strong>ahh</strong>)</div>
+            <div class="vowel red">ㅓ bef<strong>o</strong>re (<strong>eo</strong>)</div>
+            <div class="vowel green">ㅡ br<strong>oo</strong>k (<strong>uh</strong>)</div>
+            <div class="vowel black">ㅗ <strong>o</strong>ver (<strong>oh</strong>)</div>
+            <div class="vowel black">ㅜ <strong>u</strong>nder (<strong>ooh</strong>)</div>
+            
+            <div style="margin-top: 20px;">
+                <strong>Why two lines?</strong><br>
+                <div class="vowel black">ㅠ Yuuu ㅗ Yo</div>
+                <div class="vowel black">ㅑ Yaaaa ㅕ Yao</div>
+            </div>
+            
+            <div style="margin-top: 20px;">
+                <strong>Two more vowels:</strong><br>
+                <div class="vowel black">ㅐ ㅒ Ay as in Play</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Words</h2>
+            <div class="word-example">하나나</div>
+            <div class="word-example">삼성</div>
+            <div class="word-example">김정은 (일)</div>
+            <div class="word-example">강남</div>
+        </div>
+    </div>
+
+    <div class="syllable-info">
+        <h2>How Korean Syllables Work</h2>
+        <p><strong>Each syllable is squished into one box of one consonant and one or two vowel:</strong></p>
+        <p>Just like building blocks! You put the letters together as a bundle!</p>
+        
+        <div class="character-grid">
+            <div class="character-item">
+                <span class="korean-char">밤</span>
+                <span class="romanization">bam</span>
+            </div>
+            <div class="character-item">
+                <span class="korean-char">북</span>
+                <span class="romanization">book</span>
+            </div>
+        </div>
+        
+        <p><strong>Let's kick it up a notch!</strong></p>
+        
+        <p>You can add a 3rd consonant after two vowels by adding a bottom consonant:</p>
+        
+        <div class="character-grid">
+            <div class="character-item">
+                <span class="korean-char">밫</span>
+                <span class="romanization">bam + t</span>
+            </div>
+            <div class="character-item">
+                <span class="korean-char">꽃</span>
+                <span class="romanization">kkot</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="practice-section">
+        <h2>Practice Time! Match the Characters to Their Names!</h2>
+        
+        <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+            <div>
+                <h3>Korean Characters:</h3>
+                <div class="korean-char" style="font-size: 32px;">토토로</div>
+                <div class="korean-char" style="font-size: 32px;">뱃맨</div>
+                <div class="korean-char" style="font-size: 32px;">아이스크림</div>
+                <div class="korean-char" style="font-size: 32px;">컴퓨터</div>
+                <div class="korean-char" style="font-size: 32px;">초콜릿</div>
+                <div class="korean-char" style="font-size: 32px;">피자</div>
+                <div class="korean-char" style="font-size: 32px;">니모</div>
+                <div class="korean-char" style="font-size: 32px;">해리포터</div>
+            </div>
+            
+            <div>
+                <h3>Character Names:</h3>
+                <div style="font-size: 32px; font-weight: bold; margin: 10px 0;">😸 Totoro</div>
+                <div style="font-size: 32px; font-weight: bold; margin: 10px 0;">🦇 Batman</div>
+                <div style="font-size: 32px; font-weight: bold; margin: 10px 0;">🍦 Ice cream</div>
+                <div style="font-size: 32px; font-weight: bold; margin: 10px 0;">💻 Computer</div>
+                <div style="font-size: 32px; font-weight: bold; margin: 10px 0;">🍫 Chocolate</div>
+                <div style="font-size: 32px; font-weight: bold; margin: 10px 0;">🍕 Pizza</div>
+                <div style="font-size: 32px; font-weight: bold; margin: 10px 0;">🐠 Nemo</div>
+                <div style="font-size: 32px; font-weight: bold; margin: 10px 0;">⚡ Harry Potter</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tip">
+        <h2>Final Tips</h2>
+        <p><strong>Yeah, that's the end.</strong> To practice writing your own Korean, use colored characters!</p>
+        <p>You may have to replace a letter each with an appropriate replacement letter.</p>
+        <p><strong>Hope that helped!</strong></p>
+    </div>
+
+    <!-- Navigation to Next Lesson -->
+    <div style="text-align: center; margin: 30px 0; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h3 style="margin-bottom: 15px; color: #333;">📚 Continue Your Learning Journey</h3>
+        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+            <a href="korean_native_numbers.html" style="color: #0066cc; text-decoration: none; font-size: 16px; padding: 10px 20px; border: 2px solid #0066cc; border-radius: 8px; transition: all 0.3s ease;">
+                📚 Learn Native Korean Numbers
+            </a>
+            <a href="korean_sino_numbers.html" style="color: #e74c3c; text-decoration: none; font-size: 16px; padding: 10px 20px; border: 2px solid #e74c3c; border-radius: 8px; transition: all 0.3s ease;">
+                🀄 Learn Sino-Korean Numbers
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function toggleNav() {
+            const navMenu = document.querySelector('.nav-menu');
+            const overlay = document.querySelector('.overlay');
+            const navToggle = document.querySelector('.nav-toggle');
+            
+            navMenu.classList.add('open');
+            overlay.classList.add('active');
+            navToggle.classList.add('hidden');
+        }
+
+        function closeNav() {
+            const navMenu = document.querySelector('.nav-menu');
+            const overlay = document.querySelector('.overlay');
+            const navToggle = document.querySelector('.nav-toggle');
+            
+            navMenu.classList.remove('open');
+            overlay.classList.remove('active');
+            navToggle.classList.remove('hidden');
+        }
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            closeNav();
+        }
+
+        // Close navigation when clicking on overlay
+        document.querySelector('.overlay').addEventListener('click', closeNav);
+
+        // Close navigation when pressing Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeNav();
+            }
+        });
+
+        // Add hover effects to navigation buttons
+        document.querySelectorAll('a[href$=".html"]').forEach(link => {
+            if (link.style.border) {
+                link.addEventListener('mouseenter', function() {
+                    this.style.backgroundColor = this.style.color;
+                    this.style.color = 'white';
+                });
+                link.addEventListener('mouseleave', function() {
+                    this.style.backgroundColor = 'transparent';
+                    this.style.color = this.style.borderColor;
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
