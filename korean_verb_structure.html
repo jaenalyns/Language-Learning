@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Korean Verb Conjugation Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            left: -350px;
+            width: 350px;
+            height: 100vh;
+            background: #4a5568;
+            padding: 60px 20px 20px 20px;
+            transition: left 0.3s ease;
+            z-index: 1000;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+        }
+
+        .nav-menu.active {
+            left: 0;
+        }
+
+        .nav-header {
+            color: white;
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #63b3ed;
+        }
+
+        .nav-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .nav-menu a {
+            display: block;
+            margin: 8px 0;
+            padding: 15px 20px;
+            background: #2d3748;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .nav-menu a:hover {
+            background: #63b3ed;
+            border-left: 4px solid #3182ce;
+            transform: translateX(5px);
+        }
+
+        .menu-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: #e91e63;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .menu-button:hover {
+            background: #c2185b;
+            transform: translateY(-2px);
+        }
+
+        .menu-button.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .basic-structure {
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+        }
+
+        .present-tense {
+            background: linear-gradient(135deg, #ffecd2, #fcb69f);
+        }
+
+        .past-tense {
+            background: linear-gradient(135deg, #fbd3e9, #bb377d);
+            color: #333;
+        }
+
+        .future-tense {
+            background: linear-gradient(135deg, #84fab0, #8fd3f4);
+        }
+
+        .usage-note {
+            background: linear-gradient(135deg, #fa709a, #fee140);
+        }
+
+        .final-review {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .section h2 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section h3 {
+            font-size: 1.4em;
+            margin: 20px 0 15px 0;
+            color: #333;
+        }
+
+        .past-tense h3, .final-review h3 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        th {
+            background: #495057;
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        tr:hover {
+            background: #e3f2fd;
+            transition: background 0.3s ease;
+        }
+
+        .rule-box {
+            background: rgba(255,255,255,0.9);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 5px solid #007bff;
+        }
+
+        .past-tense .rule-box, .final-review .rule-box {
+            background: rgba(255,255,255,0.95);
+            color: #333;
+            border-left: 5px solid #28a745;
+        }
+
+        .emoji {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border: 2px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .warning-box h3 {
+            color: #856404;
+            margin-bottom: 15px;
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 15px 0;
+        }
+
+        .comparison-item {
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .correct {
+            background: #d4edda;
+            border: 2px solid #c3e6cb;
+        }
+
+        .incorrect {
+            background: #f8d7da;
+            border: 2px solid #f5c6cb;
+        }
+
+                    @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .nav-menu a {
+                display: block;
+                margin: 5px 0;
+            }
+            
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+            
+            table {
+                font-size: 0.9em;
+            }
+            
+            th, td {
+                padding: 8px 10px;
+            }
+        }
+    </style>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('navMenu');
+            const overlay = document.querySelector('.menu-overlay');
+            const button = document.querySelector('.menu-button');
+            
+            menu.classList.toggle('active');
+            overlay.classList.toggle('active');
+            button.classList.toggle('hidden');
+        }
+
+        function closeMenu() {
+            const menu = document.getElementById('navMenu');
+            const overlay = document.querySelector('.menu-overlay');
+            const button = document.querySelector('.menu-button');
+            
+            menu.classList.remove('active');
+            overlay.classList.remove('active');
+            button.classList.remove('hidden');
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🧠 Korean Verb Conjugation Guide</h1>
+            <p>Master the Basic Structure of Korean Verbs</p>
+        </header>
+
+        <button class="menu-button" onclick="toggleMenu()">≡ Menu</button>
+        <div class="menu-overlay" onclick="closeMenu()"></div>
+
+        <nav class="nav-menu" id="navMenu">
+            <button class="nav-close" onclick="closeMenu()">×</button>
+            <div class="nav-header">KR Korean Learning</div>
+            <a href="https://claude.ai/public/artifacts/9594021f-6de4-42df-9fdf-7e4425438546">🏠 Homepage</a>
+            <a href="https://claude.ai/public/artifacts/220ff08a-0d65-4aee-b22e-060d86bfe303">📘 Korean Alphabet</a>
+            <a href="https://claude.ai/public/artifacts/9d264c73-f49a-41a0-ae24-46d78256b842">🔢 Korean Numbers</a>
+            <a href="https://claude.ai/public/artifacts/4e59f3bf-3e10-4743-897a-dc4549c818be">💬 Survival Phrases</a>
+            <a href="#" style="background: #63b3ed; border-left: 4px solid #3182ce;">📖 Grammatical Structure</a>
+            <a href="#">🎯 Practice Exercises</a>
+            <a href="#">📚 Resources</a>
+        </nav>
+
+        <div class="content">
+            <section class="section basic-structure">
+                <h2><span class="emoji">🔹</span>Basic Structure of Korean Verbs</h2>
+                
+                <div class="rule-box">
+                    <strong>Dictionary form:</strong> All Korean verbs end in <span class="highlight">-다 (da)</span> in the dictionary — kind of like Spanish verbs ending in -ar/-er.
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Verb</th>
+                            <th>Meaning</th>
+                            <th>Romanization</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>가다</td>
+                            <td>to go</td>
+                            <td>ga-da</td>
+                        </tr>
+                        <tr>
+                            <td>먹다</td>
+                            <td>to eat</td>
+                            <td>meok-da</td>
+                        </tr>
+                        <tr>
+                            <td>마시다</td>
+                            <td>to drink</td>
+                            <td>ma-si-da</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Stem = verb minus -다</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Verb</th>
+                            <th>Stem (meaning)</th>
+                            <th>Romanization</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>가다</td>
+                            <td>가 (go)</td>
+                            <td>ga</td>
+                        </tr>
+                        <tr>
+                            <td>먹다</td>
+                            <td>먹 (eat)</td>
+                            <td>meok</td>
+                        </tr>
+                        <tr>
+                            <td>마시다</td>
+                            <td>마시 (drink)</td>
+                            <td>ma-si</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="rule-box">
+                    <strong>Endings show:</strong>
+                    <ul style="margin-left: 20px;">
+                        <li>Tense (past, present, future)</li>
+                        <li>Politeness (formal/casual)</li>
+                        <li>Sentence type (statement, question, etc.)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="section present-tense">
+                <h2><span class="emoji">🕒</span>Present Tense (Polite: –아요 / –어요)</h2>
+                
+                <div class="rule-box">
+                    <strong>Rule:</strong><br>
+                    • If last vowel of the stem is ㅏ or ㅗ → use <span class="highlight">-아요 (a-yo)</span><br>
+                    • Otherwise → use <span class="highlight">-어요 (eo-yo)</span>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Verb</th>
+                            <th>Stem</th>
+                            <th>Ending</th>
+                            <th>Final Form</th>
+                            <th>Romanization</th>
+                            <th>English</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>가다</td>
+                            <td>가</td>
+                            <td>-아요</td>
+                            <td>가요</td>
+                            <td>ga-yo</td>
+                            <td>(I/you) go</td>
+                        </tr>
+                        <tr>
+                            <td>오다</td>
+                            <td>오</td>
+                            <td>-아요 → 와요</td>
+                            <td>와요</td>
+                            <td>wa-yo</td>
+                            <td>(I/you) come</td>
+                        </tr>
+                        <tr>
+                            <td>먹다</td>
+                            <td>먹</td>
+                            <td>-어요</td>
+                            <td>먹어요</td>
+                            <td>meok-eo-yo</td>
+                            <td>(I/you) eat</td>
+                        </tr>
+                        <tr>
+                            <td>마시다</td>
+                            <td>마시</td>
+                            <td>-어요</td>
+                            <td>마셔요</td>
+                            <td>ma-syeo-yo</td>
+                            <td>(I/you) drink</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="section past-tense">
+                <h2><span class="emoji">🕓</span>Past Tense (Polite: –았어요 / –었어요)</h2>
+                
+                <div class="rule-box">
+                    <strong>Rule:</strong><br>
+                    • If stem ends in ㅏ or ㅗ → use <span class="highlight">-았어요 (ass-eo-yo)</span><br>
+                    • Otherwise → use <span class="highlight">-었어요 (eoss-eo-yo)</span>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Verb</th>
+                            <th>Stem</th>
+                            <th>Ending</th>
+                            <th>Final Form</th>
+                            <th>Romanization</th>
+                            <th>English</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>가다</td>
+                            <td>가</td>
+                            <td>-았어요</td>
+                            <td>갔어요</td>
+                            <td>gat-sseo-yo</td>
+                            <td>(I/you) went</td>
+                        </tr>
+                        <tr>
+                            <td>오다</td>
+                            <td>오</td>
+                            <td>-았어요</td>
+                            <td>왔어요</td>
+                            <td>wat-sseo-yo</td>
+                            <td>(I/you) came</td>
+                        </tr>
+                        <tr>
+                            <td>먹다</td>
+                            <td>먹</td>
+                            <td>-었어요</td>
+                            <td>먹었어요</td>
+                            <td>meok-eoss-eo-yo</td>
+                            <td>(I/you) ate</td>
+                        </tr>
+                        <tr>
+                            <td>마시다</td>
+                            <td>마시</td>
+                            <td>-었어요</td>
+                            <td>마셨어요</td>
+                            <td>ma-syeo-sseo-yo</td>
+                            <td>(I/you) drank</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="section future-tense">
+                <h2><span class="emoji">🕘</span>Future Tense (Polite: –ㄹ 거예요 / –을 거예요)</h2>
+                
+                <div class="rule-box">
+                    <strong>Rule:</strong><br>
+                    • If the stem ends in a vowel, use <span class="highlight">-ㄹ 거예요 (l geo-ye-yo)</span><br>
+                    • If the stem ends in a consonant, use <span class="highlight">-을 거예요 (eul geo-ye-yo)</span>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Verb</th>
+                            <th>Stem</th>
+                            <th>Ends in...</th>
+                            <th>Final Form</th>
+                            <th>Romanization</th>
+                            <th>English</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>가다</td>
+                            <td>가</td>
+                            <td>vowel</td>
+                            <td>갈 거예요</td>
+                            <td>gal geo-ye-yo</td>
+                            <td>(I/you) will go</td>
+                        </tr>
+                        <tr>
+                            <td>오다</td>
+                            <td>오</td>
+                            <td>vowel</td>
+                            <td>올 거예요</td>
+                            <td>ol geo-ye-yo</td>
+                            <td>(I/you) will come</td>
+                        </tr>
+                        <tr>
+                            <td>먹다</td>
+                            <td>먹</td>
+                            <td>consonant</td>
+                            <td>먹을 거예요</td>
+                            <td>meok-eul geo-ye-yo</td>
+                            <td>(I/you) will eat</td>
+                        </tr>
+                        <tr>
+                            <td>마시다</td>
+                            <td>마시</td>
+                            <td>vowel</td>
+                            <td>마실 거예요</td>
+                            <td>ma-sil geo-ye-yo</td>
+                            <td>(I/you) will drink</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="section usage-note">
+                <h2><span class="emoji">⚠️</span>When is "-다" Used?</h2>
+                
+                <div class="warning-box">
+                    <h3>Important Note:</h3>
+                    <div class="comparison">
+                        <div class="comparison-item correct">
+                            <strong>Spanish ✅</strong><br>
+                            Base form used in speech<br>
+                            Quiero <strong>comer</strong> ("I want to eat")
+                        </div>
+                        <div class="comparison-item incorrect">
+                            <strong>Korean ❌</strong><br>
+                            Base form NOT used in speech<br>
+                            Not: <strong>먹다</strong> 싶어요 ❌<br>
+                            Use: <strong>먹고 싶어요</strong> (meok-go si-peo-yo)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rule-box">
+                    <strong>"-다" is ONLY for:</strong>
+                    <ul style="margin-left: 20px;">
+                        <li>Dictionaries</li>
+                        <li>Grammar books</li>
+                        <li>Formal writing / essays</li>
+                        <li>Headlines / signs</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="section want-verb" style="background: linear-gradient(135deg, #a8e6cf, #88d8a3);">
+                <h2><span class="emoji">💬</span>Want Verb: 싶다 (sip-da)</h2>
+                
+                <div class="rule-box">
+                    <strong>Verb: 싶다 (sip-da)</strong> = "to want (to do something)"
+                    <ul style="margin-left: 20px;">
+                        <li>You attach <span class="highlight">-고 싶다</span> to a verb's <span class="highlight">-고 form</span> (verb stem + 고)</li>
+                        <li>Then conjugate <strong>싶다</strong> for the tense (present, past, future), <strong>not</strong> the action verb</li>
+                    </ul>
+                </div>
+
+                <div class="rule-box">
+                    <strong>Key Difference:</strong>
+                    <ul style="margin-left: 20px;">
+                        <li><strong>먹어요 (meok-eo-yo)</strong> = "I eat" (regular verb, polite)</li>
+                        <li><strong>먹고 (meok-go)</strong> = "to eat" (used with verbs like "want," "try," etc.)</li>
+                    </ul>
+                </div>
+
+                <div class="rule-box">
+                    <strong>Common verbs that use the -고 form:</strong>
+                    <ul style="margin-left: 20px;">
+                        <li><strong>싶다 (want)</strong> → 먹고 싶어요 = I want to eat</li>
+                        <li><strong>보다 (try/see)</strong> → 먹고 보세요 = Try eating it</li>
+                        <li><strong>있다 (be doing)</strong> → 먹고 있어요 = I'm eating</li>
+                        <li><strong>오다 (come after)</strong> → 먹고 와요 = Eat and come back</li>
+                        <li><strong>가다 (go after)</strong> → 먹고 가요 = Eat and go</li>
+                        <li><strong>자다 (sleep after)</strong> → 먹고 자요 = Eat and sleep</li>
+                        <li><strong>놀다 (play after)</strong> → 먹고 놀아요 = Eat and play</li>
+                    </ul>
+                </div>
+
+                <h3><span class="emoji">🕒</span>Present Tense (Polite: -고 싶어요)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Phrase</th>
+                            <th>Romanization</th>
+                            <th>Meaning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>먹고 싶어요</td>
+                            <td>meok-go si-peo-yo</td>
+                            <td>I want to eat</td>
+                        </tr>
+                        <tr>
+                            <td>가고 싶어요</td>
+                            <td>ga-go si-peo-yo</td>
+                            <td>I want to go</td>
+                        </tr>
+                        <tr>
+                            <td>자고 싶어요</td>
+                            <td>ja-go si-peo-yo</td>
+                            <td>I want to sleep</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3><span class="emoji">🕓</span>Past Tense (Polite: -고 싶었어요)</h3>
+                <div class="rule-box">
+                    Conjugate <strong>싶다</strong> into past tense → <span class="highlight">싶었어요 (sip-eoss-eo-yo)</span>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Phrase</th>
+                            <th>Romanization</th>
+                            <th>Meaning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>먹고 싶었어요</td>
+                            <td>meok-go sip-eoss-eo-yo</td>
+                            <td>I wanted to eat</td>
+                        </tr>
+                        <tr>
+                            <td>가고 싶었어요</td>
+                            <td>ga-go sip-eoss-eo-yo</td>
+                            <td>I wanted to go</td>
+                        </tr>
+                        <tr>
+                            <td>자고 싶었어요</td>
+                            <td>ja-go sip-eoss-eo-yo</td>
+                            <td>I wanted to sleep</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3><span class="emoji">🕘</span>Future Tense (Polite: -고 싶을 거예요)</h3>
+                <div class="rule-box">
+                    Conjugate <strong>싶다</strong> into future tense → <span class="highlight">싶을 거예요 (sip-eul geo-ye-yo)</span>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Phrase</th>
+                            <th>Romanization</th>
+                            <th>Meaning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>먹고 싶을 거예요</td>
+                            <td>meok-go sip-eul geo-ye-yo</td>
+                            <td>I will want to eat</td>
+                        </tr>
+                        <tr>
+                            <td>가고 싶을 거예요</td>
+                            <td>ga-go sip-eul geo-ye-yo</td>
+                            <td>I will want to go</td>
+                        </tr>
+                        <tr>
+                            <td>자고 싶을 거예요</td>
+                            <td>ja-go sip-eul geo-ye-yo</td>
+                            <td>I will want to sleep</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3><span class="emoji">🧠</span>Summary Table (Using 먹다 = to eat)</h3>
+                <table style="font-size: 1.1em;">
+                    <thead>
+                        <tr>
+                            <th style="font-size: 1.2em;">Tense</th>
+                            <th style="font-size: 1.2em;">Korean Phrase</th>
+                            <th style="font-size: 1.2em;">Romanization</th>
+                            <th style="font-size: 1.2em;">English Translation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="font-size: 1.3em; font-weight: bold; color: #007bff;">Present</td>
+                            <td style="font-size: 1.2em;"><strong style="color: #dc3545;">먹고 싶어요</strong></td>
+                            <td style="font-size: 1.2em;">meok-go si-peo-yo</td>
+                            <td style="font-size: 1.2em;"><em style="color: #6c757d;">I want to eat</em></td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 1.3em; font-weight: bold; color: #28a745;">Past</td>
+                            <td style="font-size: 1.2em;"><strong style="color: #dc3545;">먹고 싶었어요</strong></td>
+                            <td style="font-size: 1.2em;">meok-go sip-eoss-eo-yo</td>
+                            <td style="font-size: 1.2em;"><em style="color: #6c757d;">I wanted to eat</em></td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 1.3em; font-weight: bold; color: #fd7e14;">Future</td>
+                            <td style="font-size: 1.2em;"><strong style="color: #dc3545;">먹고 싶을 거예요</strong></td>
+                            <td style="font-size: 1.2em;">meok-go sip-eul geo-ye-yo</td>
+                            <td style="font-size: 1.2em;"><em style="color: #6c757d;">I will want to eat</em></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="rule-box">
+                    <strong>✅ So in short:</strong><br><br>
+                    🔹 <strong>먹어요 (meok-eo-yo)</strong> = <strong>"I eat"</strong> → This is a <strong>conjugated verb</strong>, polite present tense, used by itself as a statement.<br><br>
+                    🔹 <strong>먹고 (meok-go)</strong> = <strong>"to eat"</strong> → This is a <strong>connector</strong>, not a final verb. It's used <strong>with other verbs</strong> like:
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>싶어요 (want)</strong> → 먹고 싶어요 = I want to eat</li>
+                        <li><strong>보세요 (try)</strong> → 먹고 보세요 = Try eating</li>
+                        <li><strong>있어요 (doing)</strong> → 먹고 있어요 = I'm eating</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <h3>⚠️ Don't confuse them!</h3>
+                    One finishes a sentence, the other connects to the <strong>real</strong> verb you're trying to use.
+                </div>
+            </section>
+
+            <section class="section final-review">
+                <h2><span class="emoji">🎯</span>Final Review Chart</h2>
+                
+                <table style="font-size: 1.1em;">
+                    <thead>
+                        <tr>
+                            <th style="font-size: 1.2em;">Tense</th>
+                            <th style="font-size: 1.2em;"><strong>가다 (ga-da)</strong><br>→ to go</th>
+                            <th style="font-size: 1.2em;"><strong>먹다 (meok-da)</strong><br>→ to eat</th>
+                            <th style="font-size: 1.2em;"><strong>마시다 (ma-si-da)</strong><br>→ to drink</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="font-size: 1.3em; font-weight: bold; color: #007bff;">Present</td>
+                            <td style="font-size: 1.2em;"><strong style="color: #dc3545;">가요</strong> (ga-yo)<br><em style="color: #6c757d; font-size: 1.1em;">(I/you) go</em></td>
+                            <td style="font-size: 1.2em;"><strong style="color: #dc3545;">먹어요</strong> (meok-eo-yo)<br><em style="color: #6c757d; font-size: 1.1em;">(I/you) eat</em></td>
+                            <td style="font-size: 1.2em;"><strong style="color: #dc3545;">마셔요</strong> (ma-syeo-yo)<br><em style="color: #6c757d; font-size: 1.1em;">(I/you) drink</em></td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 1.3em; font-weight: bold; color: #28a745;">Past</td>
+                            <td style="font-size: 1.2em;"><strong style="color: #dc3545;">갔어요</strong> (gat-sseo-yo)<br><em style="color: #6c757d; font-size: 1.1em;">(I/you) went</em></td>
+                            <td style="font-size: 1.2em;"><strong style="color: #dc3545;">먹었어요</strong> (meok-eoss-eo-yo)<br><em style="color: #6c757d; font-size: 1.1em;">(I/you) ate</em></td>
+                            <td style="font-size: 1.2em;"><strong style="color: #dc3545;">마셨어요</strong> (ma-syeo-sseo-yo)<br><em style="color: #6c757d; font-size: 1.1em;">(I/you) drank</em></td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 1.3em; font-weight: bold; color: #fd7e14;">Future</td>
+                            <td style="font-size: 1.2em;"><strong style="color: #dc3545;">갈 거예요</strong> (gal geo-ye-yo)<br><em style="color: #6c757d; font-size: 1.1em;">(I/you) will go</em></td>
+                            <td style="font-size: 1.2em;"><strong style="color: #dc3545;">먹을 거예요</strong> (meok-eul geo-ye-yo)<br><em style="color: #6c757d; font-size: 1.1em;">(I/you) will eat</em></td>
+                            <td style="font-size: 1.2em;"><strong style="color: #dc3545;">마실 거예요</strong> (ma-sil geo-ye-yo)<br><em style="color: #6c757d; font-size: 1.1em;">(I/you) will drink</em></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="rule-box">
+                    <strong>✅ Perfect!</strong> All formatting, layout, and order preserved—just with clear English meaning added. Ready to practice with casual/conversational (반말) next!
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
+</html>
