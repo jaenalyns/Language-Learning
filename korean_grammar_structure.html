@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Korean Grammatical Structure</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            padding-top: 80px;
+        }
+
+        /* Menu Button */
+        .menu-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .menu-btn.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .menu-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Slide-out Menu */
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            left: -320px;
+            width: 320px;
+            height: 100vh;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            z-index: 1000;
+            transition: left 0.3s ease;
+            padding: 20px;
+            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.3);
+            overflow-y: auto;
+        }
+
+        .nav-menu.active {
+            left: 0;
+        }
+
+        .nav-header {
+            color: white;
+            margin-bottom: 30px;
+            font-size: 1.5rem;
+            text-align: center;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 15px;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: -5px;
+            right: 0;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-item {
+            margin-bottom: 15px;
+        }
+
+        .nav-item a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 15px 20px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        .nav-item a:hover {
+            background: rgba(52, 152, 219, 0.3);
+            transform: translateX(5px);
+        }
+
+        .nav-item a.active {
+            background: rgba(52, 152, 219, 0.5);
+            border-left: 4px solid #3498db;
+        }
+
+        /* Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+
+        .header h1 {
+            font-size: 3em;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            color: #666;
+        }
+
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            margin-bottom: 30px;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+
+        .sentence-structure {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+
+        .grammar-box {
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+            min-width: 80px;
+        }
+
+        .subject { background-color: #ffa726; }
+        .object { background-color: #ffa726; }
+        .verb { background-color: #ffa726; }
+        .time { background-color: #8e24aa; }
+        .place { background-color: #8e24aa; }
+        .manner { background-color: #8e24aa; }
+        .conjunction { background-color: #42a5f5; }
+        .dependent { background-color: #ff7043; }
+
+        .korean-text {
+            font-size: 1.4em;
+            font-weight: bold;
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        .english-literal {
+            font-style: italic;
+            color: #666;
+            text-align: center;
+            margin: 5px 0;
+        }
+
+        .english-natural {
+            color: #333;
+            text-align: center;
+            margin: 5px 0;
+            font-weight: 500;
+        }
+
+        .example-container {
+            border-left: 4px solid #667eea;
+            padding-left: 20px;
+            margin: 20px 0;
+        }
+
+        .yo-explanation {
+            background: linear-gradient(135deg, #ffeaa7, #fab1a0);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .conjunctions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .conjunction-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            border-left: 4px solid #42a5f5;
+            position: relative;
+        }
+
+        .audio-btn {
+            background: linear-gradient(135deg, #42a5f5, #1e88e5);
+            border: none;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 12px;
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 6px rgba(66, 165, 245, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .audio-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 3px 10px rgba(66, 165, 245, 0.4);
+        }
+
+        .audio-btn:active {
+            transform: scale(0.95);
+        }
+
+        .video-link {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+
+        .video-link a {
+            color: #42a5f5;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        h2 {
+            color: #4a5568;
+            margin-bottom: 20px;
+            font-size: 2em;
+            text-align: center;
+        }
+
+        h3 {
+            color: #667eea;
+            margin: 20px 0 15px 0;
+            font-size: 1.5em;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .sentence-structure {
+                flex-direction: column;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .nav-menu {
+                width: 280px;
+                left: -280px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Menu Button -->
+    <button class="menu-btn" id="menuBtn">☰ Menu</button>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Slide-out Menu -->
+    <div class="nav-menu" id="navMenu">
+        <div class="nav-header">
+            🇰🇷 Korean Learning
+            <button class="close-btn" id="closeBtn">×</button>
+        </div>
+        <div class="nav-item">
+            <a href="https://claude.ai/chat/a9cf1d89-f67b-4ce0-ba5a-77c4a9d9d8b8" target="_blank">🏠 Homepage</a>
+        </div>
+        <div class="nav-item">
+            <a href="https://claude.ai/public/artifacts/4e59f3bf-3e10-4743-897a-dc4549c818be" target="_blank">📚 Korean Alphabet</a>
+        </div>
+        <div class="nav-item">
+            <a href="https://claude.ai/public/artifacts/a4dc6381-6af9-43dd-bb45-d9b549d6896f" target="_blank">🔢 Korean Numbers</a>
+        </div>
+        <div class="nav-item">
+            <a href="https://claude.ai/public/artifacts/99e5fab4-ed45-47f8-8a6d-c8115df63a6c" target="_blank">📖 Survival Phrases</a>
+        </div>
+        <div class="nav-item">
+            <a href="#" class="active">📝 Grammatical Structure</a>
+        </div>
+        <div class="nav-item">
+            <a href="#">💪 Practice Exercises</a>
+        </div>
+        <div class="nav-item">
+            <a href="#">📖 Resources</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>Korean Grammatical Structure</h1>
+            <p>Understanding the building blocks of Korean sentences</p>
+        </div>
+
+        <div class="video-link">
+            <p>📹 <a href="https://youtu.be/f9FKwDeRWdI" target="_blank">Watch the Original Video Tutorial</a></p>
+        </div>
+
+        <div class="content-section">
+            <h2>Basic Korean Word Order (SOV)</h2>
+            <p>Korean follows a <span class="highlight">Subject-Object-Verb (SOV)</span> word order, which is different from English (SVO). Let's explore how sentences are constructed:</p>
+            
+            <div class="example-container">
+                <h3>Simple Sentence Structure</h3>
+                <div class="sentence-structure">
+                    <div class="grammar-box subject">Subject</div>
+                    <div class="grammar-box object">Object</div>
+                    <div class="grammar-box verb">Verb</div>
+                </div>
+                <div class="korean-text">나(저) 책 읽어(요)</div>
+                <div class="english-literal">I a book read</div>
+                <div class="english-natural">"I read a book"</div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Extended Sentence Elements</h2>
+            
+            <div class="example-container">
+                <h3>Adding Time and Place</h3>
+                <div class="sentence-structure">
+                    <div class="grammar-box subject">Subject</div>
+                    <div class="grammar-box time">Time</div>
+                    <div class="grammar-box place">Place</div>
+                    <div class="grammar-box object">Object</div>
+                    <div class="grammar-box verb">Verb</div>
+                </div>
+                <div class="korean-text">나(저) 매일 공원에서 책 읽어(요)</div>
+                <div class="english-literal">I everyday in the park a book read</div>
+                <div class="english-natural">"I read a book in the park every day"</div>
+            </div>
+
+            <div class="example-container">
+                <h3>Adding Manner (How)</h3>
+                <div class="sentence-structure">
+                    <div class="grammar-box subject">Subject</div>
+                    <div class="grammar-box time">Time</div>
+                    <div class="grammar-box place">Place</div>
+                    <div class="grammar-box manner">Manner</div>
+                    <div class="grammar-box object">Object</div>
+                    <div class="grammar-box verb">Verb</div>
+                </div>
+                <div class="korean-text">나(저) 매일 공원에서 조용히 책 읽어(요)</div>
+                <div class="english-literal">I everyday in the park quietly a book read</div>
+                <div class="english-natural">"I read a book quietly in the park every day"</div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Compound Sentences</h2>
+            <p>A <span class="highlight">compound sentence</span> connects two independent clauses using conjunctions:</p>
+            
+            <div class="example-container">
+                <h3>Using "그리고" (and)</h3>
+                <div class="sentence-structure">
+                    <div class="grammar-box subject">Subject</div>
+                    <div class="grammar-box object">Object</div>
+                    <div class="grammar-box verb">Verb</div>
+                    <div class="grammar-box conjunction">그리고</div>
+                    <div class="grammar-box object">Object</div>
+                    <div class="grammar-box verb">Verb</div>
+                </div>
+                <div class="korean-text">나(저) 책 읽고 커피 마셔(요)</div>
+                <div class="english-literal">I a book read and coffee drink</div>
+                <div class="english-natural">"I read a book and drink coffee"</div>
+            </div>
+
+            <div class="example-container">
+                <h3>Using "하지만" (but)</h3>
+                <div class="sentence-structure">
+                    <div class="grammar-box subject">Subject</div>
+                    <div class="grammar-box object">Object</div>
+                    <div class="grammar-box verb">Verb</div>
+                    <div class="grammar-box conjunction">하지만</div>
+                    <div class="grammar-box object">Object</div>
+                    <div class="grammar-box verb">Verb</div>
+                </div>
+                <div class="korean-text">나(저) 책 읽어(요) 하지만 커피 마셔(요)</div>
+                <div class="english-literal">I a book read but coffee drink</div>
+                <div class="english-natural">"I read a book but drink coffee"</div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Complex Sentences</h2>
+            <p>A <span class="highlight">complex sentence</span> is made up of one independent sentence and a dependent clause. These use dependent conjunctions:</p>
+            
+            <div class="example-container">
+                <h3>Using "전에" (before)</h3>
+                <div class="sentence-structure">
+                    <div class="grammar-box subject">Subject</div>
+                    <div class="grammar-box object">Object</div>
+                    <div class="grammar-box verb">Verb</div>
+                    <div class="grammar-box dependent">전에</div>
+                </div>
+                <div class="korean-text">나(저) 일하기 전에</div>
+                <div class="english-literal">I work before</div>
+                <div class="english-natural">"Before I work"</div>
+            </div>
+
+            <div class="example-container">
+                <h3>Using "후에" (after)</h3>
+                <div class="sentence-structure">
+                    <div class="grammar-box subject">Subject</div>
+                    <div class="grammar-box object">Object</div>
+                    <div class="grammar-box verb">Verb</div>
+                    <div class="grammar-box dependent">후에</div>
+                </div>
+                <div class="korean-text">나(저) 퇴근한 후에</div>
+                <div class="english-literal">I finish work after</div>
+                <div class="english-natural">"After I finish work"</div>
+            </div>
+
+            <div class="example-container">
+                <h3>Using "면" (when/if)</h3>
+                <div class="sentence-structure">
+                    <div class="grammar-box subject">Subject</div>
+                    <div class="grammar-box object">Object</div>
+                    <div class="grammar-box verb">Verb</div>
+                    <div class="grammar-box dependent">면</div>
+                </div>
+                <div class="korean-text">나(저) 시간이 있으면</div>
+                <div class="english-literal">I time have if</div>
+                <div class="english-natural">"If I have time"</div>
+            </div>
+        </div>
+
+        <div class="content-section yo-explanation">
+            <h2>Understanding "요" (Yo)</h2>
+            <p><span class="highlight">"요" (yo)</span> is a politeness marker that makes sentences formal and respectful. Here's what you need to know:</p>
+            
+            <h3>What it means:</h3>
+            <ul style="margin: 15px 0; padding-left: 20px;">
+                <li>"요" doesn't change the meaning of the sentence - it only adds politeness</li>
+                <li>It's equivalent to speaking formally or respectfully in English</li>
+                <li>Shows respect to the listener</li>
+            </ul>
+
+            <h3>When to use it:</h3>
+            <ul style="margin: 15px 0; padding-left: 20px;">
+                <li><strong>With strangers</strong> - Always use 요 when speaking to people you don't know well</li>
+                <li><strong>With elders</strong> - Essential when speaking to older people</li>
+                <li><strong>In formal situations</strong> - Business meetings, presentations, formal events</li>
+                <li><strong>With authority figures</strong> - Teachers, bosses, officials</li>
+            </ul>
+
+            <h3>When you can omit it:</h3>
+            <ul style="margin: 15px 0; padding-left: 20px;">
+                <li><strong>With close friends</strong> - Casual speech is acceptable</li>
+                <li><strong>With family</strong> - Depends on family dynamics and age relationships</li>
+                <li><strong>With younger people</strong> - When you're significantly older</li>
+            </ul>
+        </div>
+
+        <div class="content-section yo-explanation">
+            <h2>Understanding "저" (Jeo)</h2>
+            <p><span class="highlight">"저" (jeo)</span> is the formal/polite version of "나" (na), both meaning "I". Here's what you need to know:</p>
+            
+            <h3>What it means:</h3>
+            <ul style="margin: 15px 0; padding-left: 20px;">
+                <li>"저" means "I" but in a humble, respectful way</li>
+                <li>It shows humility and respect when referring to yourself</li>
+                <li>Same meaning as "나" but with added politeness</li>
+            </ul>
+
+            <h3>When to use it:</h3>
+            <ul style="margin: 15px 0; padding-left: 20px;">
+                <li><strong>With strangers</strong> - Always use 저 when speaking to people you don't know well</li>
+                <li><strong>With elders</strong> - Essential when speaking to older people</li>
+                <li><strong>In formal situations</strong> - Job interviews, business meetings, formal presentations</li>
+                <li><strong>With authority figures</strong> - Teachers, bosses, government officials</li>
+                <li><strong>First meetings</strong> - When introducing yourself to new people</li>
+            </ul>
+
+            <h3>When you can use "나" instead:</h3>
+            <ul style="margin: 15px 0; padding-left: 20px;">
+                <li><strong>With close friends</strong> - Casual "나" is perfectly acceptable</li>
+                <li><strong>With family</strong> - Usually "나" unless speaking to much older relatives</li>
+                <li><strong>With younger people</strong> - When you're significantly older</li>
+                <li><strong>Informal settings</strong> - Casual conversations with peers</li>
+            </ul>
+
+            <h3>Examples:</h3>
+            <ul style="margin: 15px 0; padding-left: 20px;">
+                <li><strong>Formal:</strong> 저는 학생입니다 (jeoneun haksaeng-imnida) - "I am a student" (polite)</li>
+                <li><strong>Informal:</strong> 나는 학생이야 (naneun haksaeng-iya) - "I am a student" (casual)</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Verb Stems and Conjugation</h2>
+            <p>Korean verbs change form based on politeness level, tense, and the type of conjunction used:</p>
+            
+            <div class="example-container">
+                <h3>Basic Verb Forms</h3>
+                <p><strong>읽다 (ilkda)</strong> - to read</p>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li><strong>Stem:</strong> 읽 (ilk)</li>
+                    <li><strong>Informal:</strong> 읽어 (ilgeo)</li>
+                    <li><strong>Formal:</strong> 읽어요 (ilgeoyo)</li>
+                    <li><strong>With conjunction:</strong> 읽고 (ilkgo) - "read and..."</li>
+                </ul>
+            </div>
+
+            <div class="example-container">
+                <h3>How Verbs Connect with Conjunctions</h3>
+                <p>When combining verbs with conjunctions, the verb root changes:</p>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li><strong>-고 (go)</strong> connects actions: 읽고 (read and...)</li>
+                    <li><strong>-지만 (jiman)</strong> shows contrast: 읽지만 (read but...)</li>
+                    <li><strong>-어서/아서 (eoseo/aseo)</strong> shows reason: 읽어서 (because of reading...)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Common Korean Conjunctions</h2>
+            <div class="conjunctions-grid">
+                <div class="conjunction-item">
+                    <button class="audio-btn" onclick="speakKorean('그리고')">🔊</button>
+                    <strong>그리고</strong><br>
+                    (geurigo)<br>
+                    <em>and</em>
+                </div>
+                <div class="conjunction-item">
+                    <button class="audio-btn" onclick="speakKorean('하지만')">🔊</button>
+                    <strong>하지만</strong><br>
+                    (hajiman)<br>
+                    <em>but, however</em>
+                </div>
+                <div class="conjunction-item">
+                    <button class="audio-btn" onclick="speakKorean('그래서')">🔊</button>
+                    <strong>그래서</strong><br>
+                    (geuraeseo)<br>
+                    <em>so, therefore</em>
+                </div>
+                <div class="conjunction-item">
+                    <button class="audio-btn" onclick="speakKorean('또는')">🔊</button>
+                    <strong>또는</strong><br>
+                    (ttoneun)<br>
+                    <em>or</em>
+                </div>
+                <div class="conjunction-item">
+                    <button class="audio-btn" onclick="speakKorean('전에')">🔊</button>
+                    <strong>전에</strong><br>
+                    (jeone)<br>
+                    <em>before</em>
+                </div>
+                <div class="conjunction-item">
+                    <button class="audio-btn" onclick="speakKorean('후에')">🔊</button>
+                    <strong>후에</strong><br>
+                    (hue)<br>
+                    <em>after</em>
+                </div>
+                <div class="conjunction-item">
+                    <button class="audio-btn" onclick="speakKorean('자마자')">🔊</button>
+                    <strong>자마자</strong><br>
+                    (jamaja)<br>
+                    <em>as soon as</em>
+                </div>
+                <div class="conjunction-item">
+                    <button class="audio-btn" onclick="speakKorean('면')">🔊</button>
+                    <strong>면</strong><br>
+                    (myeon)<br>
+                    <em>if, when</em>
+                </div>
+                <div class="conjunction-item">
+                    <button class="audio-btn" onclick="speakKorean('동안')">🔊</button>
+                    <strong>동안</strong><br>
+                    (dongan)<br>
+                    <em>while, during</em>
+                </div>
+                <div class="conjunction-item">
+                    <button class="audio-btn" onclick="speakKorean('때문에')">🔊</button>
+                    <strong>때문에</strong><br>
+                    (ttaemune)<br>
+                    <em>because of</em>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Additional Korean Grammar Points</h2>
+            
+            <h3>Particle System</h3>
+            <p>Korean uses particles to mark grammatical functions:</p>
+            <ul style="margin: 15px 0; padding-left: 20px;">
+                <li><strong>이/가 (i/ga)</strong> - Subject marker</li>
+                <li><strong>을/를 (eul/reul)</strong> - Object marker</li>
+                <li><strong>에서 (eseo)</strong> - Location where action happens</li>
+                <li><strong>에 (e)</strong> - Destination or specific time</li>
+                <li><strong>와/과/하고 (wa/gwa/hago)</strong> - "and" (connecting nouns)</li>
+            </ul>
+
+            <h3>Honorific System</h3>
+            <p>Korean has three main levels of politeness:</p>
+            <ul style="margin: 15px 0; padding-left: 20px;">
+                <li><strong>Informal (반말)</strong> - Used with close friends, family, younger people</li>
+                <li><strong>Polite (존댓말)</strong> - Uses 요, standard respectful form</li>
+                <li><strong>Formal (높임말)</strong> - Uses special honorific forms for very formal situations</li>
+            </ul>
+
+            <h3>Question Formation</h3>
+            <p>Questions in Korean can be formed by:</p>
+            <ul style="margin: 15px 0; padding-left: 20px;">
+                <li><strong>Intonation</strong> - Rising tone at the end</li>
+                <li><strong>Question words</strong> - 뭐 (what), 누구 (who), 언제 (when), 어디 (where)</li>
+                <li><strong>-습니까/-ㅂ니까</strong> - Formal question ending</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Get DOM elements
+        const menuBtn = document.getElementById('menuBtn');
+        const navMenu = document.getElementById('navMenu');
+        const overlay = document.getElementById('overlay');
+        const closeBtn = document.getElementById('closeBtn');
+
+        // Open menu function
+        function openMenu() {
+            navMenu.classList.add('active');
+            overlay.classList.add('active');
+            menuBtn.classList.add('hidden');
+        }
+
+        // Close menu function
+        function closeMenu() {
+            navMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            menuBtn.classList.remove('hidden');
+        }
+
+        // Event listeners
+        menuBtn.addEventListener('click', openMenu);
+        closeBtn.addEventListener('click', closeMenu);
+        overlay.addEventListener('click', closeMenu);
+
+        // Close menu with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeMenu();
+            }
+        });
+
+        // Text-to-Speech function for Korean pronunciation
+        function speakKorean(text) {
+            if ('speechSynthesis' in window) {
+                // Cancel any ongoing speech
+                speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'ko-KR'; // Korean language
+                utterance.rate = 0.8; // Slightly slower for clarity
+                utterance.pitch = 1;
+                utterance.volume = 1;
+                
+                // Try to find a Korean voice
+                const voices = speechSynthesis.getVoices();
+                const koreanVoice = voices.find(voice => voice.lang.includes('ko'));
+                if (koreanVoice) {
+                    utterance.voice = koreanVoice;
+                }
+                
+                speechSynthesis.speak(utterance);
+            } else {
+                alert('Sorry, your browser does not support text-to-speech functionality.');
+            }
+        }
+
+        // Load voices when they become available
+        speechSynthesis.addEventListener('voiceschanged', function() {
+            // Voices are now loaded
+        });
+    </script>
+</body>
+</html>
