@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sino-Korean Numbers 1-100</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
+        
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: linear-gradient(135deg, #f5f5f0 0%, #e8e8e0 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #FF8C00;
+            font-size: 3rem;
+            font-weight: 900;
+            text-shadow: 3px 3px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+        
+        .numbers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .number-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .number-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .number-card:active {
+            transform: translateY(-2px);
+        }
+        
+        .play-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.2rem;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+        
+        .number-card:hover .play-icon {
+            opacity: 1;
+        }
+        
+        .audio-playing {
+            background: rgba(255, 140, 0, 0.1) !important;
+            border: 2px solid #FF8C00;
+        }
+        
+        .arabic-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #FF8C00;
+            text-shadow: 2px 2px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000;
+            margin-bottom: 10px;
+        }
+        
+        .korean-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #FF8C00;
+            text-shadow: 2px 2px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000;
+            margin-bottom: 5px;
+        }
+        
+        .romanized {
+            font-size: 1.2rem;
+            color: #666;
+            font-weight: 400;
+            font-style: italic;
+        }
+        
+        .section-header {
+            grid-column: 1 / -1;
+            font-size: 2rem;
+            font-weight: 900;
+            color: #FF8C00;
+            text-shadow: 2px 2px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000;
+            margin: 30px 0 20px 0;
+            text-transform: uppercase;
+        }
+
+        /* Slide-out navigation menu */
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 300px;
+            height: 100vh;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            z-index: 1000;
+            transition: left 0.3s ease;
+            padding: 20px;
+            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .nav-menu.open {
+            left: 0;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .nav-menu h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            text-align: center;
+            border-bottom: 2px solid #FF8C00;
+            padding-bottom: 10px;
+        }
+
+        .nav-item {
+            margin-bottom: 15px;
+        }
+
+        .nav-item a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 12px 15px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-item a:hover {
+            background: rgba(255, 140, 0, 0.3);
+            transform: translateX(5px);
+        }
+
+        .nav-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: linear-gradient(135deg, #FF8C00, #e67e22);
+            border: none;
+            padding: 12px 15px;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(255, 140, 0, 0.3);
+            transition: all 0.3s ease;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .nav-toggle.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .nav-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 140, 0, 0.4);
+        }
+
+        .nav-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+
+        .nav-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Usage Guide Styles */
+        .usage-guide {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 50px 0;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            text-align: left;
+        }
+
+        .usage-guide h2 {
+            color: #FF8C00;
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-shadow: 2px 2px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000;
+            text-align: center;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        .number-systems {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .system-card {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .system-card h3 {
+            color: #FF8C00;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-align: center;
+            border-bottom: 2px solid #FF8C00;
+            padding-bottom: 10px;
+        }
+
+        .system-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .system-card li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .system-card li:before {
+            content: "📍";
+            position: absolute;
+            left: 0;
+        }
+
+        .comparison-table {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #FF8C00, #e67e22);
+            color: white;
+            padding: 15px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .comparison-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+            text-align: center;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .video-section {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .video-section h3 {
+            color: #FF8C00;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 560px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 315px;
+            border-radius: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .numbers-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .arabic-number {
+                font-size: 2rem;
+            }
+            
+            .korean-number {
+                font-size: 1.4rem;
+            }
+            
+            .romanized {
+                font-size: 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+
+            .number-systems {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .usage-guide h2 {
+                font-size: 2rem;
+            }
+
+            .video-container iframe {
+                height: 200px;
+            }
+
+            .video-section h3 {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Toggle Button -->
+    <button class="nav-toggle" onclick="openNav()">☰ Menu</button>
+
+    <!-- Overlay -->
+    <div class="overlay" onclick="closeNav()"></div>
+
+    <!-- Slide-out Navigation Menu -->
+    <nav class="nav-menu">
+        <button class="nav-close" onclick="closeNav()">×</button>
+        <h3>🇰🇷 Korean Learning ×</h3>
+        <div class="nav-item">
+            <a href="https://jaenalyns.github.io/Language-Learning/korean_learning_guide.html" target="_blank">🏠 Homepage</a>
+        </div>
+        <div class="nav-item">
+            <a href="https://claude.ai/public/artifacts/a4dc6381-6af9-43dd-bb45-d9b549d6896f" target="_blank">🔢 Korean Numbers</a>
+        </div>
+        <div class="nav-item">
+            <a href="https://claude.ai/public/artifacts/99e5fab4-ed45-47f8-8a6d-c8115df63a6c" target="_blank">📖 Survival Phrases</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>중국어계 한국어 숫자 1-100<br>Sino-Korean Numbers</h1>
+        
+        <div class="numbers-grid" id="numbersGrid">
+            <!-- Numbers will be generated by JavaScript -->
+        </div>
+
+        <!-- Usage Guide Section -->
+        <div class="usage-guide">
+            <h2>When to Use Each Number System</h2>
+            
+            <div class="number-systems">
+                <div class="system-card">
+                    <h3>Sino-Korean Numbers (中)</h3>
+                    <ul>
+                        <li>Dates (years, months, days)</li>
+                        <li>Money and prices</li>
+                        <li>Phone numbers</li>
+                        <li>Addresses</li>
+                        <li>Mathematical calculations</li>
+                        <li>Time (minutes and seconds)</li>
+                        <li>Floor numbers</li>
+                        <li>Large numbers (100+)</li>
+                        <li>Academic/formal contexts</li>
+                    </ul>
+                </div>
+                
+                <div class="system-card">
+                    <h3>Native Korean Numbers (純)</h3>
+                    <ul>
+                        <li>Counting objects (1-99)</li>
+                        <li>Age of people</li>
+                        <li>Time (hours)</li>
+                        <li>Counting people</li>
+                        <li>Small quantities</li>
+                        <li>Traditional contexts</li>
+                        <li>With counters (개, 마리, 명)</li>
+                        <li>Ordinal numbers (first, second)</li>
+                        <li>Casual conversation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="comparison-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Example Context</th>
+                            <th>Sino-Korean</th>
+                            <th>Native Korean</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Year 2025</td>
+                            <td>이천이십오년 (icheon-isibo-nyeon)</td>
+                            <td>❌ Not used</td>
+                        </tr>
+                        <tr>
+                            <td>$5 (money)</td>
+                            <td>오달러 (o-dalleo)</td>
+                            <td>❌ Not used</td>
+                        </tr>
+                        <tr>
+                            <td>3 apples</td>
+                            <td>❌ Not used</td>
+                            <td>사과 세 개 (sagwa se gae)</td>
+                        </tr>
+                        <tr>
+                            <td>2 o'clock</td>
+                            <td>❌ Not used</td>
+                            <td>두 시 (du si)</td>
+                        </tr>
+                        <tr>
+                            <td>30 minutes</td>
+                            <td>삼십 분 (samsip bun)</td>
+                            <td>❌ Not used</td>
+                        </tr>
+                        <tr>
+                            <td>Phone: 010-1234-5678</td>
+                            <td>공일공-일이삼사-오육칠팔</td>
+                            <td>❌ Not used</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- YouTube Video Section -->
+            <div class="video-section">
+                <h3>📺 Watch Video to Understand Sino and Native Number Differences</h3>
+                <div class="video-container">
+                    <iframe width="560" 
+                            height="315" 
+                            src="https://www.youtube.com/embed/Jt75jjeMgK8?si=AbCdEfGhIjKlMnOp" 
+                            title="Korean Number Systems Explained"
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            allowfullscreen>
+                    </iframe>
+                </div>
+                <p style="margin-top: 15px; color: #666; font-style: italic;">
+                    Can't see the video? <a href="https://www.youtube.com/shorts/Jt75jjeMgK8?feature=share" target="_blank" style="color: #FF8C00; text-decoration: none; font-weight: bold;">Click here to watch on YouTube</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navigation functions - defined first
+        function openNav() {
+            const navMenu = document.querySelector('.nav-menu');
+            const overlay = document.querySelector('.overlay');
+            const navToggle = document.querySelector('.nav-toggle');
+            
+            navMenu.classList.add('open');
+            overlay.classList.add('active');
+            navToggle.classList.add('hidden');
+        }
+
+        function closeNav() {
+            const navMenu = document.querySelector('.nav-menu');
+            const overlay = document.querySelector('.overlay');
+            const navToggle = document.querySelector('.nav-toggle');
+            
+            navMenu.classList.remove('open');
+            overlay.classList.remove('active');
+            navToggle.classList.remove('hidden');
+        }
+
+        function playNumber(number, koreanText) {
+            // Visual feedback
+            const cards = document.querySelectorAll('.number-card');
+            const clickedCard = Array.from(cards).find(card => 
+                card.querySelector('.arabic-number')?.textContent == number
+            );
+            
+            if (clickedCard) {
+                clickedCard.classList.add('audio-playing');
+                setTimeout(() => {
+                    clickedCard.classList.remove('audio-playing');
+                }, 1000);
+            }
+
+            // Use Web Speech API for pronunciation
+            if ('speechSynthesis' in window) {
+                // Cancel any ongoing speech
+                speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(koreanText);
+                
+                // Try to find a Korean voice
+                const voices = speechSynthesis.getVoices();
+                const koreanVoice = voices.find(voice => 
+                    voice.lang.includes('ko') || voice.lang.includes('KR')
+                );
+                
+                if (koreanVoice) {
+                    utterance.voice = koreanVoice;
+                }
+                
+                utterance.lang = 'ko-KR';
+                utterance.rate = 0.8; // Slightly slower for learning
+                utterance.pitch = 1;
+                
+                speechSynthesis.speak(utterance);
+            } else {
+                // Fallback message if speech synthesis not supported
+                console.log('Speech synthesis not supported');
+                alert(`Korean pronunciation: ${koreanText}`);
+            }
+        }
+
+        const sinoKoreanNumbers = {
+            0: { korean: "영", romanized: "yeong" },
+            1: { korean: "일", romanized: "il" },
+            2: { korean: "이", romanized: "i" },
+            3: { korean: "삼", romanized: "sam" },
+            4: { korean: "사", romanized: "sa" },
+            5: { korean: "오", romanized: "o" },
+            6: { korean: "육", romanized: "yuk" },
+            7: { korean: "칠", romanized: "chil" },
+            8: { korean: "팔", romanized: "pal" },
+            9: { korean: "구", romanized: "gu" },
+            10: { korean: "십", romanized: "sip" },
+            11: { korean: "십일", romanized: "sip-il" },
+            12: { korean: "십이", romanized: "sip-i" },
+            13: { korean: "십삼", romanized: "sip-sam" },
+            14: { korean: "십사", romanized: "sip-sa" },
+            15: { korean: "십오", romanized: "sip-o" },
+            16: { korean: "십육", romanized: "sip-yuk" },
+            17: { korean: "십칠", romanized: "sip-chil" },
+            18: { korean: "십팔", romanized: "sip-pal" },
+            19: { korean: "십구", romanized: "sip-gu" },
+            20: { korean: "이십", romanized: "i-sip" },
+            21: { korean: "이십일", romanized: "i-sip-il" },
+            22: { korean: "이십이", romanized: "i-sip-i" },
+            23: { korean: "이십삼", romanized: "i-sip-sam" },
+            24: { korean: "이십사", romanized: "i-sip-sa" },
+            25: { korean: "이십오", romanized: "i-sip-o" },
+            26: { korean: "이십육", romanized: "i-sip-yuk" },
+            27: { korean: "이십칠", romanized: "i-sip-chil" },
+            28: { korean: "이십팔", romanized: "i-sip-pal" },
+            29: { korean: "이십구", romanized: "i-sip-gu" },
+            30: { korean: "삼십", romanized: "sam-sip" },
+            31: { korean: "삼십일", romanized: "sam-sip-il" },
+            32: { korean: "삼십이", romanized: "sam-sip-i" },
+            33: { korean: "삼십삼", romanized: "sam-sip-sam" },
+            34: { korean: "삼십사", romanized: "sam-sip-sa" },
+            35: { korean: "삼십오", romanized: "sam-sip-o" },
+            36: { korean: "삼십육", romanized: "sam-sip-yuk" },
+            37: { korean: "삼십칠", romanized: "sam-sip-chil" },
+            38: { korean: "삼십팔", romanized: "sam-sip-pal" },
+            39: { korean: "삼십구", romanized: "sam-sip-gu" },
+            40: { korean: "사십", romanized: "sa-sip" },
+            41: { korean: "사십일", romanized: "sa-sip-il" },
+            42: { korean: "사십이", romanized: "sa-sip-i" },
+            43: { korean: "사십삼", romanized: "sa-sip-sam" },
+            44: { korean: "사십사", romanized: "sa-sip-sa" },
+            45: { korean: "사십오", romanized: "sa-sip-o" },
+            46: { korean: "사십육", romanized: "sa-sip-yuk" },
+            47: { korean: "사십칠", romanized: "sa-sip-chil" },
+            48: { korean: "사십팔", romanized: "sa-sip-pal" },
+            49: { korean: "사십구", romanized: "sa-sip-gu" },
+            50: { korean: "오십", romanized: "o-sip" },
+            51: { korean: "오십일", romanized: "o-sip-il" },
+            52: { korean: "오십이", romanized: "o-sip-i" },
+            53: { korean: "오십삼", romanized: "o-sip-sam" },
+            54: { korean: "오십사", romanized: "o-sip-sa" },
+            55: { korean: "오십오", romanized: "o-sip-o" },
+            56: { korean: "오십육", romanized: "o-sip-yuk" },
+            57: { korean: "오십칠", romanized: "o-sip-chil" },
+            58: { korean: "오십팔", romanized: "o-sip-pal" },
+            59: { korean: "오십구", romanized: "o-sip-gu" },
+            60: { korean: "육십", romanized: "yuk-sip" },
+            61: { korean: "육십일", romanized: "yuk-sip-il" },
+            62: { korean: "육십이", romanized: "yuk-sip-i" },
+            63: { korean: "육십삼", romanized: "yuk-sip-sam" },
+            64: { korean: "육십사", romanized: "yuk-sip-sa" },
+            65: { korean: "육십오", romanized: "yuk-sip-o" },
+            66: { korean: "육십육", romanized: "yuk-sip-yuk" },
+            67: { korean: "육십칠", romanized: "yuk-sip-chil" },
+            68: { korean: "육십팔", romanized: "yuk-sip-pal" },
+            69: { korean: "육십구", romanized: "yuk-sip-gu" },
+            70: { korean: "칠십", romanized: "chil-sip" },
+            71: { korean: "칠십일", romanized: "chil-sip-il" },
+            72: { korean: "칠십이", romanized: "chil-sip-i" },
+            73: { korean: "칠십삼", romanized: "chil-sip-sam" },
+            74: { korean: "칠십사", romanized: "chil-sip-sa" },
+            75: { korean: "칠십오", romanized: "chil-sip-o" },
+            76: { korean: "칠십육", romanized: "chil-sip-yuk" },
+            77: { korean: "칠십칠", romanized: "chil-sip-chil" },
+            78: { korean: "칠십팔", romanized: "chil-sip-pal" },
+            79: { korean: "칠십구", romanized: "chil-sip-gu" },
+            80: { korean: "팔십", romanized: "pal-sip" },
+            81: { korean: "팔십일", romanized: "pal-sip-il" },
+            82: { korean: "팔십이", romanized: "pal-sip-i" },
+            83: { korean: "팔십삼", romanized: "pal-sip-sam" },
+            84: { korean: "팔십사", romanized: "pal-sip-sa" },
+            85: { korean: "팔십오", romanized: "pal-sip-o" },
+            86: { korean: "팔십육", romanized: "pal-sip-yuk" },
+            87: { korean: "팔십칠", romanized: "pal-sip-chil" },
+            88: { korean: "팔십팔", romanized: "pal-sip-pal" },
+            89: { korean: "팔십구", romanized: "pal-sip-gu" },
+            90: { korean: "구십", romanized: "gu-sip" },
+            91: { korean: "구십일", romanized: "gu-sip-il" },
+            92: { korean: "구십이", romanized: "gu-sip-i" },
+            93: { korean: "구십삼", romanized: "gu-sip-sam" },
+            94: { korean: "구십사", romanized: "gu-sip-sa" },
+            95: { korean: "구십오", romanized: "gu-sip-o" },
+            96: { korean: "구십육", romanized: "gu-sip-yuk" },
+            97: { korean: "구십칠", romanized: "gu-sip-chil" },
+            98: { korean: "구십팔", romanized: "gu-sip-pal" },
+            99: { korean: "구십구", romanized: "gu-sip-gu" },
+            100: { korean: "백", romanized: "baek" }
+        };
+
+        function generateNumbers() {
+            const grid = document.getElementById('numbersGrid');
+            
+            // Add section headers and generate numbers
+            const sections = [
+                { start: 0, end: 19, title: "0-19" },
+                { start: 20, end: 39, title: "20-39" },
+                { start: 40, end: 59, title: "40-59" },
+                { start: 60, end: 79, title: "60-79" },
+                { start: 80, end: 100, title: "80-100" }
+            ];
+
+            sections.forEach(section => {
+                // Add section header
+                const header = document.createElement('div');
+                header.className = 'section-header';
+                header.textContent = section.title;
+                grid.appendChild(header);
+
+                // Add numbers in this section
+                for (let i = section.start; i <= section.end; i++) {
+                    const numberData = sinoKoreanNumbers[i];
+                    
+                    const card = document.createElement('div');
+                    card.className = 'number-card';
+                    card.onclick = () => playNumber(i, numberData.korean);
+                    
+                    card.innerHTML = `
+                        <div class="play-icon">🔊</div>
+                        <div class="arabic-number">${i}</div>
+                        <div class="korean-number">${numberData.korean}</div>
+                        <div class="romanized">${numberData.romanized}</div>
+                    `;
+                    
+                    grid.appendChild(card);
+                }
+            });
+        }
+
+        // Load voices when they become available
+        if ('speechSynthesis' in window) {
+            speechSynthesis.onvoiceschanged = function() {
+                // Voices are now loaded
+            };
+        }
+
+        // Generate numbers when page loads
+        document.addEventListener('DOMContentLoaded', generateNumbers);
+
+        // Close navigation when pressing Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeNav();
+            }
+        });
+    </script>
+</body>
+</html>
