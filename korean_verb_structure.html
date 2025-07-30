@@ -97,6 +97,11 @@
             transform: translateX(5px);
         }
 
+        .nav-menu a.active {
+            background: #63b3ed;
+            border-left: 4px solid #3182ce;
+        }
+
         .menu-button {
             position: fixed;
             top: 20px;
@@ -293,7 +298,7 @@
             border: 2px solid #f5c6cb;
         }
 
-                    @media (max-width: 768px) {
+        @media (max-width: 768px) {
             .container {
                 margin: 10px;
                 border-radius: 15px;
@@ -356,14 +361,15 @@
 
         <nav class="nav-menu" id="navMenu">
             <button class="nav-close" onclick="closeMenu()">×</button>
-            <div class="nav-header">KR Korean Learning</div>
-            <a href="https://claude.ai/public/artifacts/9594021f-6de4-42df-9fdf-7e4425438546">🏠 Homepage</a>
-            <a href="https://claude.ai/public/artifacts/220ff08a-0d65-4aee-b22e-060d86bfe303">📘 Korean Alphabet</a>
-            <a href="https://claude.ai/public/artifacts/9d264c73-f49a-41a0-ae24-46d78256b842">🔢 Korean Numbers</a>
-            <a href="https://claude.ai/public/artifacts/4e59f3bf-3e10-4743-897a-dc4549c818be">💬 Survival Phrases</a>
-            <a href="#" style="background: #63b3ed; border-left: 4px solid #3182ce;">📖 Grammatical Structure</a>
-            <a href="#">🎯 Practice Exercises</a>
-            <a href="#">📚 Resources</a>
+            <div class="nav-header">🇰🇷 Korean Learning</div>
+            <a href="index.html">🏠 Homepage</a>
+            <a href="korean_reading_guide.html">📚 Korean Alphabet</a>
+            <a href="korean_native_number_counter_100.html">🔢 Native Numbers</a>
+            <a href="korean_sino_numbers_counter_100.html">🀄 Sino-Korean Numbers</a>
+            <a href="korean_survival_phrases.html">💬 Survival Phrases</a>
+            <a href="korean_grammar_structure.html">📝 Grammar Structure</a>
+            <a href="#" class="active">⚡ Verb Conjugation</a>
+            <a href="korean_honorifics_guide.html">🎭 Korean Honorifics</a>
         </nav>
 
         <div class="content">
@@ -850,6 +856,10 @@
                     <strong>✅ Perfect!</strong> All formatting, layout, and order preserved—just with clear English meaning added. Ready to practice with casual/conversational (반말) next!
                 </div>
             </section>
+        </div>
+        
+        <div style="text-align: center; padding: 20px; background: white;">
+            <a href="spanish_verb_conjugation_guide.html" style="color: #e91e63; font-style: italic; text-decoration: none; font-size: 18px;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Secret Link</a>
         </div>
     </div>
 </body>
