@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Korean Honorifics - Complete Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Menu Button */
+        .menu-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .menu-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .menu-btn.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* Slide-out Menu */
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            left: -320px;
+            width: 320px;
+            height: 100vh;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            z-index: 1000;
+            transition: left 0.3s ease;
+            padding: 20px;
+            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.3);
+            overflow-y: auto;
+        }
+
+        .nav-menu.active {
+            left: 0;
+        }
+
+        .nav-header {
+            color: white;
+            margin-bottom: 30px;
+            font-size: 1.5rem;
+            text-align: center;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 15px;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: -5px;
+            right: 0;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-item {
+            margin-bottom: 15px;
+        }
+
+        .nav-item a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 15px 20px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        .nav-item a:hover {
+            background: rgba(52, 152, 219, 0.3);
+            transform: translateX(5px);
+        }
+
+        .nav-item a.active {
+            background: rgba(52, 152, 219, 0.5);
+            border-left: 4px solid #3498db;
+        }
+
+        /* Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            margin-top: 60px;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            color: #666;
+        }
+
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            margin-bottom: 30px;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 2em;
+            text-align: center;
+            border-bottom: 3px solid #e74c3c;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #c0392b;
+            margin: 25px 0 15px 0;
+            font-size: 1.5em;
+        }
+
+        h4 {
+            color: #8e44ad;
+            margin: 15px 0 10px 0;
+            font-size: 1.2em;
+        }
+
+        .key-rule {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 5px solid #f39c12;
+        }
+
+        .simple-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .simple-table th {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .simple-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #bdc3c7;
+            vertical-align: top;
+        }
+
+        .simple-table tr:nth-child(even) {
+            background: #ecf0f1;
+        }
+
+        .korean-text {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #8e44ad;
+        }
+
+        .romanization {
+            font-style: italic;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+
+        .level-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .level-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 5px solid;
+        }
+
+        .level-formal { border-left-color: #d32f2f; }
+        .level-polite { border-left-color: #f57c00; }
+        .level-casual { border-left-color: #388e3c; }
+
+        .audio-btn {
+            background: linear-gradient(135deg, #42a5f5, #1e88e5);
+            border: none;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 14px;
+            margin-left: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(66, 165, 245, 0.4);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .audio-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(66, 165, 245, 0.6);
+        }
+
+        .good-bad {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .good, .bad {
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .good {
+            background: linear-gradient(135deg, #e8f5e8, #c8e6c9);
+            border: 3px solid #4caf50;
+        }
+
+        .bad {
+            background: linear-gradient(135deg, #ffebee, #ffcdd2);
+            border: 3px solid #f44336;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #ffebee, #ffcdd2);
+            border: 2px solid #e57373;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .tip-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .family-terms {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .family-card {
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #4caf50;
+        }
+
+        .step-by-step {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 3px solid #2196f3;
+        }
+
+        ul, ol {
+            margin: 15px 0;
+            padding-left: 30px;
+            line-height: 1.8;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5em;
+            }
+            
+            .nav-menu {
+                width: 280px;
+                left: -280px;
+            }
+
+            .level-grid, .family-terms, .tips-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .good-bad {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Menu Button -->
+    <button class="menu-btn" id="menuBtn">☰ Menu</button>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Slide-out Menu -->
+    <div class="nav-menu" id="navMenu">
+        <div class="nav-header">
+            🇰🇷 Korean Learning
+            <button class="close-btn" id="closeBtn">×</button>
+        </div>
+        <div class="nav-item">
+            <a href="index.html">🏠 Homepage</a>
+        </div>
+        <div class="nav-item">
+            <a href="korean_reading_guide.html">📚 Korean Alphabet</a>
+        </div>
+        <div class="nav-item">
+            <a href="korean_native_number_counter_100.html">🔢 Native Numbers</a>
+        </div>
+        <div class="nav-item">
+            <a href="korean_sino_numbers_counter_100.html">🀄 Sino-Korean Numbers</a>
+        </div>
+        <div class="nav-item">
+            <a href="korean_survival_phrases.html">💬 Survival Phrases</a>
+        </div>
+        <div class="nav-item">
+            <a href="korean_grammar_structure.html">📝 Grammar Structure</a>
+        </div>
+        <div class="nav-item">
+            <a href="korean_verb_structure.html">⚡ Verb Conjugation</a>
+        </div>
+        <div class="nav-item">
+            <a href="#" class="active">🎭 Korean Honorifics</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- TITLE -->
+        <div class="header">
+            <h1>Korean Honorifics Guide</h1>
+            <p>Master Respectful Communication in Korean</p>
+            <p style="font-size: 1rem; color: #888; margin-top: 10px;">높임말 - The Foundation of Korean Social Interaction</p>
+        </div>
+
+        <!-- GOLDEN RULE -->
+        <div class="content-section">
+            <h2>🏆 The Golden Rule</h2>
+            <div class="key-rule">
+                <h3>🎯 When in doubt, use honorifics!</h3>
+                <p>It's always better to be <strong>too polite</strong> than accidentally rude. Most Koreans appreciate your effort to show respect, even if your usage isn't perfect.</p>
+            </div>
+        </div>
+
+        <!-- STEP 1: SPEECH LEVELS -->
+        <div class="content-section">
+            <h2>📊 Step 1: Master the Three Speech Levels</h2>
+            
+            <div class="level-grid">
+                <div class="level-card level-formal">
+                    <h4>🔴 Formal (하십시오체)</h4>
+                    <p><strong>Endings:</strong> -습니다, -ㅂ니다, -십니까</p>
+                    <p><strong>Use with:</strong> Strangers, elderly people, very formal situations</p>
+                    <div style="margin: 10px 0;">
+                        <span class="korean-text">안녕하십니까?</span><br>
+                        <span class="romanization">annyeonghasimnikka?</span><br>
+                        "How do you do?" (very formal)
+                        <button class="audio-btn" onclick="speakKorean('안녕하십니까?')">🔊</button>
+                    </div>
+                </div>
+                
+                <div class="level-card level-polite">
+                    <h4>🟡 Polite (해요체) ← Start Here!</h4>
+                    <p><strong>Endings:</strong> -어요/-아요, -세요</p>
+                    <p><strong>Use with:</strong> Most daily interactions, colleagues, acquaintances</p>
+                    <div style="margin: 10px 0;">
+                        <span class="korean-text">안녕하세요?</span><br>
+                        <span class="romanization">annyeonghaseyo?</span><br>
+                        "Hello" (polite - most common)
+                        <button class="audio-btn" onclick="speakKorean('안녕하세요?')">🔊</button>
+                    </div>
+                </div>
+                
+                <div class="level-card level-casual">
+                    <h4>🟢 Casual (해체)</h4>
+                    <p><strong>Endings:</strong> -어/-아, -지, -야</p>
+                    <p><strong>Use with:</strong> Close friends same age, family, younger people</p>
+                    <div style="margin: 10px 0;">
+                        <span class="korean-text">안녕?</span><br>
+                        <span class="romanization">annyeong?</span><br>
+                        "Hi" (casual - careful!)
+                        <button class="audio-btn" onclick="speakKorean('안녕?')">🔊</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="key-rule">
+                <h4>💡 Beginner Strategy</h4>
+                <p>Start with <strong>Polite Level (해요체)</strong> for everyone. It's safe in 90% of situations!</p>
+            </div>
+
+            <h3>🎯 What Speech Levels Affect vs. What They Don't</h3>
+            
+            <div class="good-bad">
+                <div class="good">
+                    <h4>✅ Speech Levels DO Affect:</h4>
+                    <p><strong>1. Verbs (Action Words)</strong></p>
+                    <ul style="text-align: left; margin: 10px 0;">
+                        <li><strong>Formal:</strong> <span class="korean-text">갑니다</span> (gamnida) - "go"</li>
+                        <li><strong>Polite:</strong> <span class="korean-text">가요</span> (gayo) - "go"</li>
+                        <li><strong>Casual:</strong> <span class="korean-text">가</span> (ga) - "go"</li>
+                    </ul>
+                    
+                    <p><strong>2. Adjectives (Descriptive Words)</strong></p>
+                    <ul style="text-align: left; margin: 10px 0;">
+                        <li><strong>Formal:</strong> <span class="korean-text">좋습니다</span> (jotseumnida) - "good"</li>
+                        <li><strong>Polite:</strong> <span class="korean-text">좋아요</span> (joayo) - "good"</li>
+                        <li><strong>Casual:</strong> <span class="korean-text">좋아</span> (joa) - "good"</li>
+                    </ul>
+                    
+                    <p><strong>3. Copula (Being/Existence)</strong></p>
+                    <ul style="text-align: left; margin: 10px 0;">
+                        <li><strong>Formal:</strong> <span class="korean-text">학생입니다</span> (haksaeng-imnida)</li>
+                        <li><strong>Polite:</strong> <span class="korean-text">학생이에요</span> (haksaeng-ieyo)</li>
+                        <li><strong>Casual:</strong> <span class="korean-text">학생이야</span> (haksaeng-iya)</li>
+                    </ul>
+                </div>
+                
+                <div class="bad">
+                    <h4>🚫 Speech Levels DON'T Affect:</h4>
+                    <p><strong>1. Titles and Honorific Suffixes</strong></p>
+                    <ul style="text-align: left; margin: 10px 0;">
+                        <li><span class="korean-text">선생님</span> (seonsaengnim) - Teacher</li>
+                        <li><span class="korean-text">사장님</span> (sajangnim) - Boss</li>
+                        <li><span class="korean-text">-님</span> (-nim) - Honorific suffix</li>
+                    </ul>
+                    
+                    <p><strong>2. Pure Nouns</strong></p>
+                    <ul style="text-align: left; margin: 10px 0;">
+                        <li><span class="korean-text">책</span> (chaek) - book</li>
+                        <li><span class="korean-text">집</span> (jip) - house</li>
+                        <li><span class="korean-text">물</span> (mul) - water</li>
+                    </ul>
+                    
+                    <p><strong>3. Particles & Numbers</strong></p>
+                    <ul style="text-align: left; margin: 10px 0;">
+                        <li><span class="korean-text">이/가</span> (i/ga) - subject markers</li>
+                        <li><span class="korean-text">하나, 둘, 셋</span> (numbers)</li>
+                        <li><span class="korean-text">오늘, 어제</span> (time words)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step-by-step">
+                <h4>📋 Complete Sentence Examples:</h4>
+                <p><strong>Formal:</strong> <span class="korean-text">저는 한국 사람입니다. 서울에서 왔습니다.</span><br>
+                "I am Korean. I came from Seoul." (formal)</p>
+                
+                <p><strong>Polite:</strong> <span class="korean-text">저는 한국 사람이에요. 서울에서 왔어요.</span><br>
+                "I am Korean. I came from Seoul." (polite)</p>
+                
+                <p><strong>Casual:</strong> <span class="korean-text">나는 한국 사람이야. 서울에서 왔어.</span><br>
+                "I am Korean. I came from Seoul." (casual)</p>
+            </div>
+
+            <div class="key-rule">
+                <h4>💡 Key Rule:</h4>
+                <p>Speech levels create <strong>consistency</strong> throughout the entire conversation. You don't mix formal verb endings with casual adjective endings - everything should match the same level of politeness!</p>
+                <p>Titles like <strong>선생님</strong> stay <strong>선생님</strong> whether you're speaking formally, politely, or casually. The speech level shows up in how you conjugate the verbs and adjectives around those titles!</p>
+            </div>
+        </div>
+
+        <!-- STEP 2: FAMILY TERMS -->
+        <div class="content-section">
+            <h2>👨‍👩‍👧‍👦 Step 2: Learn Gender-Specific Family Terms</h2>
+            <p>Korean family terms depend on <strong>your gender</strong> and <strong>their gender/age</strong>:</p>
+            
+            <div class="family-terms">
+                <div class="family-card">
+                    <h4>Older Brother (to Female)</h4>
+                    <div class="korean-text">오빠</div>
+                    <div class="romanization">oppa</div>
+                    <strong>Female → Older Male</strong>
+                    <button class="audio-btn" onclick="speakKorean('오빠')">🔊</button>
+                </div>
+                
+                <div class="family-card">
+                    <h4>Older Brother (to Male)</h4>
+                    <div class="korean-text">형</div>
+                    <div class="romanization">hyeong</div>
+                    <strong>Male → Older Male</strong>
+                    <button class="audio-btn" onclick="speakKorean('형')">🔊</button>
+                </div>
+                
+                <div class="family-card">
+                    <h4>Older Sister (to Female)</h4>
+                    <div class="korean-text">언니</div>
+                    <div class="romanization">eonni</div>
+                    <strong>Female → Older Female</strong>
+                    <button class="audio-btn" onclick="speakKorean('언니')">🔊</button>
+                </div>
+                
+                <div class="family-card">
+                    <h4>Older Sister (to Male)</h4>
+                    <div class="korean-text">누나</div>
+                    <div class="romanization">nuna</div>
+                    <strong>Male → Older Female</strong>
+                    <button class="audio-btn" onclick="speakKorean('누나')">🔊</button>
+                </div>
+                
+                <div class="family-card">
+                    <h4>Younger Sibling</h4>
+                    <div class="korean-text">동생</div>
+                    <div class="romanization">dongsaeng</div>
+                    <strong>Anyone → Younger Person</strong>
+                    <button class="audio-btn" onclick="speakKorean('동생')">🔊</button>
+                </div>
+                
+                <div class="family-card">
+                    <h4>Father</h4>
+                    <div class="korean-text">아버지</div>
+                    <div class="romanization">abeoji</div>
+                    <strong>Your own father</strong>
+                    <button class="audio-btn" onclick="speakKorean('아버지')">🔊</button>
+                </div>
+                
+                <div class="family-card">
+                    <h4>Father (Honorific)</h4>
+                    <div class="korean-text">아버님</div>
+                    <div class="romanization">abeonim</div>
+                    <strong>Someone else's father</strong>
+                    <button class="audio-btn" onclick="speakKorean('아버님')">🔊</button>
+                </div>
+                
+                <div class="family-card">
+                    <h4>Mother</h4>
+                    <div class="korean-text">어머니</div>
+                    <div class="romanization">eomeoni</div>
+                    <strong>Your own mother</strong>
+                    <button class="audio-btn" onclick="speakKorean('어머니')">🔊</button>
+                </div>
+                
+                <div class="family-card">
+                    <h4>Mother (Honorific)</h4>
+                    <div class="korean-text">어머님</div>
+                    <div class="romanization">eomeonim</div>
+                    <strong>Someone else's mother</strong>
+                    <button class="audio-btn" onclick="speakKorean('어머님')">🔊</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 3: BASIC HONORIFIC VERBS -->
+        <div class="content-section">
+            <h2>🎪 Step 3: Essential Honorific Verbs</h2>
+            <p>Use these when talking <strong>about</strong> respected people:</p>
+            
+            <table class="simple-table">
+                <thead>
+                    <tr>
+                        <th>English</th>
+                        <th>Regular Form</th>
+                        <th>Honorific Form</th>
+                        <th>When to Use Honorific</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>to eat</strong></td>
+                        <td><span class="korean-text">먹다</span><br><span class="romanization">meokda</span></td>
+                        <td><span class="korean-text">드시다</span><br><span class="romanization">deusida</span></td>
+                        <td>Teacher, parents, elderly people eat</td>
+                    </tr>
+                    <tr>
+                        <td><strong>to sleep</strong></td>
+                        <td><span class="korean-text">자다</span><br><span class="romanization">jada</span></td>
+                        <td><span class="korean-text">주무시다</span><br><span class="romanization">jumusida</span></td>
+                        <td>Respected people sleep</td>
+                    </tr>
+                    <tr>
+                        <td><strong>to come</strong></td>
+                        <td><span class="korean-text">오다</span><br><span class="romanization">oda</span></td>
+                        <td><span class="korean-text">오시다</span><br><span class="romanization">osida</span></td>
+                        <td>Someone important comes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>to be</strong></td>
+                        <td><span class="korean-text">있다</span><br><span class="romanization">itda</span></td>
+                        <td><span class="korean-text">계시다</span><br><span class="romanization">gyesida</span></td>
+                        <td>Respected person exists/is located</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="good-bad">
+                <div class="bad">
+                    <h4>❌ Wrong</h4>
+                    <span class="korean-text">선생님이 밥을 먹었어요</span><br>
+                    <span class="romanization">seonsaengnim-i bab-eul meogeosseoyo</span><br>
+                    Using regular verb for teacher
+                </div>
+                <div class="good">
+                    <h4>✅ Correct</h4>
+                    <span class="korean-text">선생님이 밥을 드셨어요</span><br>
+                    <span class="romanization">seonsaengnim-i bab-eul deusyeosseoyo</span><br>
+                    Using honorific verb for teacher
+                </div>
+            </div>
+
+            <h3>💫 Special Case: "Want" Verb (싶다) - All Levels & Tenses</h3>
+            <p>The verb "to want" uses the <strong>-고 싶다</strong> pattern and can be conjugated to all speech levels:</p>
+            
+            <table class="simple-table">
+                <thead>
+                    <tr>
+                        <th>Tense</th>
+                        <th>Formal (하십시오체)</th>
+                        <th>Polite (해요체)</th>
+                        <th>Casual (해체)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Present</strong><br>"I want to eat"</td>
+                        <td><span class="korean-text">먹고 싶습니다</span><br><span class="romanization">meok-go sip-seubnida</span><button class="audio-btn" onclick="speakKorean('먹고 싶습니다')">🔊</button></td>
+                        <td><span class="korean-text">먹고 싶어요</span><br><span class="romanization">meok-go si-peo-yo</span><button class="audio-btn" onclick="speakKorean('먹고 싶어요')">🔊</button></td>
+                        <td><span class="korean-text">먹고 싶어</span><br><span class="romanization">meok-go si-peo</span><button class="audio-btn" onclick="speakKorean('먹고 싶어')">🔊</button></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Past</strong><br>"I wanted to eat"</td>
+                        <td><span class="korean-text">먹고 싶었습니다</span><br><span class="romanization">meok-go sip-eot-seubnida</span><button class="audio-btn" onclick="speakKorean('먹고 싶었습니다')">🔊</button></td>
+                        <td><span class="korean-text">먹고 싶었어요</span><br><span class="romanization">meok-go sip-eoss-eo-yo</span><button class="audio-btn" onclick="speakKorean('먹고 싶었어요')">🔊</button></td>
+                        <td><span class="korean-text">먹고 싶었어</span><br><span class="romanization">meok-go sip-eoss-eo</span><button class="audio-btn" onclick="speakKorean('먹고 싶었어')">🔊</button></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Future</strong><br>"I will want to eat"</td>
+                        <td><span class="korean-text">먹고 싶겠습니다</span><br><span class="romanization">meok-go sip-get-seubnida</span><button class="audio-btn" onclick="speakKorean('먹고 싶겠습니다')">🔊</button></td>
+                        <td><span class="korean-text">먹고 싶을 거예요</span><br><span class="romanization">meok-go sip-eul geo-ye-yo</span><button class="audio-btn" onclick="speakKorean('먹고 싶을 거예요')">🔊</button></td>
+                        <td><span class="korean-text">먹고 싶을 거야</span><br><span class="romanization">meok-go sip-eul geo-ya</span><button class="audio-btn" onclick="speakKorean('먹고 싶을 거야')">🔊</button></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="key-rule">
+                <h4>🔗 Why -고 Pattern?</h4>
+                <p><strong>먹고 싶어요</strong> = "I eat-and want" (Korean logic)</p>
+                <p><strong>NOT 먹어요 싶어요</strong> = "I eat, I want" (two separate sentences - wrong!)</p>
+                <p>Korean uses <strong>-고</strong> to connect the first verb to the main verb, like English "to" in "want to eat"</p>
+            </div>
+        </div>
+
+        <!-- HUMBLE FORMS -->
+        <div class="content-section">
+            <h2>🙇‍♂️ Humble Forms (겸양법)</h2>
+            <p>Humble forms lower <strong>yourself</strong> to show respect to the <strong>listener</strong>. This is the other side of the honorific system:</p>
+
+            <h3>🗣️ Humble Pronouns</h3>
+            <table class="simple-table">
+                <thead>
+                    <tr>
+                        <th>Regular Form</th>
+                        <th>Humble Form</th>
+                        <th>English</th>
+                        <th>When to Use</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="korean-text">나</span> (na)</td>
+                        <td><span class="korean-text">저</span> (jeo)</td>
+                        <td>I/me</td>
+                        <td>Formal situations, speaking to superiors<button class="audio-btn" onclick="speakKorean('저')">🔊</button></td>
+                    </tr>
+                    <tr>
+                        <td><span class="korean-text">우리</span> (uri)</td>
+                        <td><span class="korean-text">저희</span> (jeohui)</td>
+                        <td>we/us</td>
+                        <td>Formal situations, representing a group<button class="audio-btn" onclick="speakKorean('저희')">🔊</button></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>🎯 Humble Verbs</h3>
+            <table class="simple-table">
+                <thead>
+                    <tr>
+                        <th>Regular Verb</th>
+                        <th>Humble Form</th>
+                        <th>Usage Context</th>
+                        <th>Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="korean-text">주다</span> (juda)</td>
+                        <td><span class="korean-text">드리다</span> (deurida)</td>
+                        <td>When giving to someone of higher status</td>
+                        <td><span class="korean-text">선물을 드려요</span> "I give a gift"<button class="audio-btn" onclick="speakKorean('선물을 드려요')">🔊</button></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>🏠 Humble Nouns</h3>
+            <table class="simple-table">
+                <thead>
+                    <tr>
+                        <th>Regular Noun</th>
+                        <th>Humble/Honorific Form</th>
+                        <th>English</th>
+                        <th>Example Usage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="korean-text">이름</span> (ireum)</td>
+                        <td><span class="korean-text">성함</span> (seongham)</td>
+                        <td>name</td>
+                        <td><span class="korean-text">성함이 어떻게 되세요?</span> "What is your name?"<button class="audio-btn" onclick="speakKorean('성함이 어떻게 되세요?')">🔊</button></td>
+                    </tr>
+                    <tr>
+                        <td><span class="korean-text">나이</span> (nai)</td>
+                        <td><span class="korean-text">연세</span> (yeonse)</td>
+                        <td>age</td>
+                        <td><span class="korean-text">연세가 어떻게 되세요?</span> "How old are you?"<button class="audio-btn" onclick="speakKorean('연세가 어떻게 되세요?')">🔊</button></td>
+                    </tr>
+                    <tr>
+                        <td><span class="korean-text">집</span> (jip)</td>
+                        <td><span class="korean-text">댁</span> (daek)</td>
+                        <td>house</td>
+                        <td><span class="korean-text">댁이 어디세요?</span> "Where is your house?"<button class="audio-btn" onclick="speakKorean('댁이 어디세요?')">🔊</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- STEP 4: TITLES AND NAMES -->
+        <div class="content-section">
+            <h2>🏷️ Step 4: Basic Honorific Titles and Suffixes</h2>
+            
+            <table class="simple-table">
+                <thead>
+                    <tr>
+                        <th>Suffix</th>
+                        <th>Korean</th>
+                        <th>Respect Level</th>
+                        <th>Who to Use With</th>
+                        <th>Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>씨 (ssi)</strong></td>
+                        <td><span class="korean-text">씨</span></td>
+                        <td>Equal/slightly respectful</td>
+                        <td>Colleagues, acquaintances of similar status</td>
+                        <td><span class="korean-text">김영수 씨</span> (Kim Yeongsu-ssi)<button class="audio-btn" onclick="speakKorean('김영수 씨')">🔊</button></td>
+                    </tr>
+                    <tr>
+                        <td><strong>님 (nim)</strong></td>
+                        <td><span class="korean-text">님</span></td>
+                        <td>High respect</td>
+                        <td>Teachers, bosses, customers, professionals</td>
+                        <td><span class="korean-text">선생님</span> (seonsaeng-nim)<button class="audio-btn" onclick="speakKorean('선생님')">🔊</button></td>
+                    </tr>
+                    <tr>
+                        <td><strong>군 (gun)</strong></td>
+                        <td><span class="korean-text">군</span></td>
+                        <td>Formal (young men)</td>
+                        <td>Young unmarried males in formal contexts</td>
+                        <td><span class="korean-text">지호 군</span> (Jiho-gun)<button class="audio-btn" onclick="speakKorean('지호 군')">🔊</button></td>
+                    </tr>
+                    <tr>
+                        <td><strong>양 (yang)</strong></td>
+                        <td><span class="korean-text">양</span></td>
+                        <td>Formal (young women)</td>
+                        <td>Young unmarried females in formal contexts</td>
+                        <td><span class="korean-text">수아 양</span> (Sua-yang)<button class="audio-btn" onclick="speakKorean('수아 양')">🔊</button></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>🔄 How Titles Integrate with Speech Levels</h3>
+            
+            <div class="level-grid">
+                <div class="level-card level-casual">
+                    <h4>🟢 Casual Level</h4>
+                    <p><span class="korean-text">영수야, 뭐 해?</span></p>
+                    <p><span class="romanization">Yeongsu-ya, mwo hae?</span></p>
+                    <p>"Yeongsu, what are you doing?"</p>
+                    <button class="audio-btn" onclick="speakKorean('영수야, 뭐 해?')">🔊</button>
+                </div>
+                
+                <div class="level-card level-polite">
+                    <h4>🟡 Polite Level</h4>
+                    <p><span class="korean-text">영수 씨, 뭐 하세요?</span></p>
+                    <p><span class="romanization">Yeongsu-ssi, mwo haseyo?</span></p>
+                    <p>"Yeongsu, what are you doing?"</p>
+                    <button class="audio-btn" onclick="speakKorean('영수 씨, 뭐 하세요?')">🔊</button>
+                </div>
+                
+                <div class="level-card level-formal">
+                    <h4>🔴 Formal Level</h4>
+                    <p><span class="korean-text">영수 님, 무엇을 하십니까?</span></p>
+                    <p><span class="romanization">Yeongsu-nim, mueoseul hasimnikka?</span></p>
+                    <p>"Yeongsu, what are you doing?"</p>
+                    <button class="audio-btn" onclick="speakKorean('영수 님, 무엇을 하십니까?')">🔊</button>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <h4>🚫 Critical Usage Rules</h4>
+                <ul>
+                    <li><strong>Never use surname only with 씨:</strong> "박 씨" is extremely rude - always use full name "박영수 씨" or first name "영수 씨"</li>
+                    <li><strong>Professional titles require 님:</strong> Say "사장님" not "사장" - bare titles sound dismissive</li>
+                    <li><strong>Match title to speech level:</strong> Formal titles need formal speech, casual relationships allow casual speech</li>
+                </ul>
+            </div>
+
+            <h3>💼 Professional Titles</h3>
+            <p><strong>Note:</strong> All professional titles show <strong>high respect</strong> and require the -님 suffix.</p>
+            
+            <h4>🎓 Education</h4>
+            <table class="simple-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Korean</th>
+                        <th>Who to Use With</th>
+                        <th>Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>선생님 (seonsaeng-nim)</strong></td>
+                        <td><span class="korean-text">선생님</span></td>
+                        <td>Teachers, instructors</td>
+                        <td><span class="korean-text">김선생님</span> (Gim-seonsaeng-nim)<button class="audio-btn" onclick="speakKorean('김선생님')">🔊</button></td>
+                    </tr>
+                    <tr>
+                        <td><strong>교수님 (gyosu-nim)</strong></td>
+                        <td><span class="korean-text">교수님</span></td>
+                        <td>University professors</td>
+                        <td><span class="korean-text">박교수님</span> (Bak-gyosu-nim)<button class="audio-btn" onclick="speakKorean('박교수님')">🔊</button></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>💼 Business</h4>
+            <table class="simple-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Korean</th>
+                        <th>Who to Use With</th>
+                        <th>Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>사장님 (sajang-nim)</strong></td>
+                        <td><span class="korean-text">사장님</span></td>
+                        <td>Company president/boss</td>
+                        <td><span class="korean-text">이사장님</span> (I-sajang-nim)<button class="audio-btn" onclick="speakKorean('이사장님')">🔊</button></td>
+                    </tr>
+                    <tr>
+                        <td><strong>부장님 (bujang-nim)</strong></td>
+                        <td><span class="korean-text">부장님</span></td>
+                        <td>Department heads</td>
+                        <td><span class="korean-text">최부장님</span> (Choe-bujang-nim)<button class="audio-btn" onclick="speakKorean('최부장님')">🔊</button></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>🏥 Medical</h4>
+            <table class="simple-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Korean</th>
+                        <th>Who to Use With</th>
+                        <th>Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>의사선생님 (uisa-seonsaeng-nim)</strong></td>
+                        <td><span class="korean-text">의사선생님</span></td>
+                        <td>Medical doctors</td>
+                        <td><span class="korean-text">김의사선생님</span> (Gim-uisa-seonsaeng-nim)<button class="audio-btn" onclick="speakKorean('김의사선생님')">🔊</button></td>
+                    </tr>
+                    <tr>
+                        <td><strong>간호사님 (ganhosa-nim)</strong></td>
+                        <td><span class="korean-text">간호사님</span></td>
+                        <td>Nurses</td>
+                        <td><span class="korean-text">박간호사님</span> (Bak-ganhosa-nim)<button class="audio-btn" onclick="speakKorean('박간호사님')">🔊</button></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>🛍️ Service</h4>
+            <table class="simple-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Korean</th>
+                        <th>Who to Use With</th>
+                        <th>Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>손님 (son-nim)</strong></td>
+                        <td><span class="korean-text">손님</span></td>
+                        <td>Guests, customers</td>
+                        <td><span class="korean-text">고객님</span> (gogaek-nim)<button class="audio-btn" onclick="speakKorean('고객님')">🔊</button></td>
+                    </tr>
+                    <tr>
+                        <td><strong>기사님 (gisa-nim)</strong></td>
+                        <td><span class="korean-text">기사님</span></td>
+                        <td>Drivers, technicians</td>
+                        <td><span class="korean-text">택시기사님</span> (taeksi-gisa-nim)<button class="audio-btn" onclick="speakKorean('택시기사님')">🔊</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- CALLING PEOPLE -->
+        <div class="content-section">
+            <h2>📢 Step 5: Calling Someone's Name</h2>
+            <p>Korean has special endings when calling someone directly:</p>
+            
+            <table class="simple-table">
+                <thead>
+                    <tr>
+                        <th>Ending</th>
+                        <th>When to Use</th>
+                        <th>Example</th>
+                        <th>Relationship Level</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="korean-text">-아</span> (-a)</td>
+                        <td>Name ends in consonant</td>
+                        <td><span class="korean-text">진영아!</span> (Jinyeong-a!)<button class="audio-btn" onclick="speakKorean('진영아')">🔊</button></td>
+                        <td>Close friends, equal age or younger only</td>
+                    </tr>
+                    <tr>
+                        <td><span class="korean-text">-야</span> (-ya)</td>
+                        <td>Name ends in vowel</td>
+                        <td><span class="korean-text">예지야!</span> (Yeji-ya!)<button class="audio-btn" onclick="speakKorean('예지야')">🔊</button></td>
+                        <td>Close friends, equal age or younger only</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="warning-box">
+                <h4>⚠️ Critical Rule for -아/-야</h4>
+                <p><strong>Only use with people same age or younger!</strong> Using with older people is extremely rude.</p>
+            </div>
+
+            <div class="good-bad">
+                <div class="good">
+                    <h4>✅ Safe to Use -아/-야 With:</h4>
+                    <ul>
+                        <li>Best friends of same age</li>
+                        <li>Younger siblings or cousins</li>
+                        <li>Children (if you're an adult)</li>
+                        <li>Close romantic partners</li>
+                    </ul>
+                </div>
+                <div class="bad">
+                    <h4>🚫 Never Use -아/-야 With:</h4>
+                    <ul>
+                        <li>Anyone older than you</li>
+                        <li>Strangers or acquaintances</li>
+                        <li>Teachers, bosses, or superiors</li>
+                        <li>People you've just met</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- AVOID PRONOUNS -->
+        <div class="content-section">
+            <h2>🚫 Step 6: Avoid "You" Pronouns</h2>
+            <p>Korean avoids direct pronouns like "you" - use alternatives instead:</p>
+            
+            <div class="good-bad">
+                <div class="bad">
+                    <h4>❌ Don't Say</h4>
+                    <span class="korean-text">당신은 누구예요?</span><br>
+                    <span class="romanization">dangsin-eun nugu-yeyo?</span><br>
+                    "Who are you?" (using 당신)
+                </div>
+                <div class="good">
+                    <h4>✅ Say Instead</h4>
+                    <span class="korean-text">성함이 어떻게 되세요?</span><br>
+                    <span class="romanization">seongham-i eotteoke doeseyo?</span><br>
+                    "What is your name?" (respectful)
+                </div>
+            </div>
+
+            <h3>🔄 Alternatives to "You"</h3>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <h4>🏷️ Use Names + Titles</h4>
+                    <span class="korean-text">김선생님은 어디 가세요?</span><br>
+                    <span class="romanization">gim-seonsaengnim-eun eodi gaseyo?</span><br>
+                    "Where are you going, Teacher Kim?"
+                    <button class="audio-btn" onclick="speakKorean('김선생님은 어디 가세요?')">🔊</button>
+                </div>
+                
+                <div class="tip-card">
+                    <h4>👨‍👩‍👧‍👦 Use Family Terms</h4>
+                    <span class="korean-text">어머님께서 언제 오세요?</span><br>
+                    <span class="romanization">eomeonim-kkeseo eonje oseyo?</span><br>
+                    "When are you coming, Mother?"
+                    <button class="audio-btn" onclick="speakKorean('어머님께서 언제 오세요?')">🔊</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SPECIAL PARTICLES -->
+        <div class="content-section">
+            <h2>🎯 Step 7: Honorific Particles</h2>
+            <p>Replace regular particles with honorific ones for respected people:</p>
+            
+            <table class="simple-table">
+                <thead>
+                    <tr>
+                        <th>Function</th>
+                        <th>Regular Particle</th>
+                        <th>Honorific Particle</th>
+                        <th>Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Subject</strong></td>
+                        <td>이/가 (i/ga)</td>
+                        <td>께서 (kkeseo)</td>
+                        <td><span class="korean-text">선생님께서 오셨습니다</span><br><span class="romanization">seonsaengnim-kkeseo osyeotseumnida</span><br>"The teacher came"<button class="audio-btn" onclick="speakKorean('선생님께서 오셨습니다')">🔊</button></td>
+                    </tr>
+                    <tr>
+                        <td><strong>To/For</strong></td>
+                        <td>에게 (ege)</td>
+                        <td>께 (kke)</td>
+                        <td><span class="korean-text">어머님께 드려요</span><br><span class="romanization">eomeonim-kke deuryeoyo</span><br>"I give to mother"<button class="audio-btn" onclick="speakKorean('어머님께 드려요')">🔊</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- QUICK DECISION GUIDE -->
+        <div class="content-section">
+            <h2>🎯 Quick Decision Guide: Who Gets What Level?</h2>
+            
+            <div class="step-by-step">
+                <h3>🔴 Always Use Formal/Honorific With:</h3>
+                <ul>
+                    <li>People older than you (even by one year)</li>
+                    <li>Teachers, professors, doctors</li>
+                    <li>Your boss or superiors at work</li>
+                    <li>Parents, grandparents, in-laws</li>
+                    <li>Strangers you're meeting for the first time</li>
+                    <li>Anyone in a position of authority</li>
+                </ul>
+            </div>
+
+            <div class="step-by-step" style="background: linear-gradient(135deg, #fff9e6, #ffeaa7); border-color: #f39c12;">
+                <h3>🟡 Use Polite Level With:</h3>
+                <ul>
+                    <li>Colleagues of similar age and position</li>
+                    <li>Acquaintances and neighbors</li>
+                    <li>Service workers (waiters, shop clerks)</li>
+                    <li>Classmates you don't know well</li>
+                    <li>Most daily interactions</li>
+                </ul>
+            </div>
+
+            <div class="step-by-step" style="background: linear-gradient(135deg, #e8f5e8, #c8e6c9); border-color: #4caf50;">
+                <h3>🟢 Can Use Casual With:</h3>
+                <ul>
+                    <li>Close friends of the same age</li>
+                    <li>Younger siblings and cousins</li>
+                    <li>Children (if you're an adult)</li>
+                    <li>Very close family members</li>
+                    <li>People who explicitly ask you to speak casually</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- COMMON MISTAKES -->
+        <div class="content-section">
+            <h2>⚠️ Most Critical Mistakes to Avoid</h2>
+            
+            <div class="good-bad">
+                <div class="bad">
+                    <h4>❌ Wrong</h4>
+                    <span class="korean-text">저의 어머님</span><br>
+                    <span class="romanization">jeo-ui eomeonim</span><br>
+                    Using honorific for your own mother
+                </div>
+                <div class="good">
+                    <h4>✅ Correct</h4>
+                    <span class="korean-text">저의 어머니</span><br>
+                    <span class="romanization">jeo-ui eomeoni</span><br>
+                    Humble form for your own mother
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <h4>🚨 Critical Don'ts</h4>
+                <ul>
+                    <li><strong>Never use honorifics for yourself</strong> when speaking to someone of higher status</li>
+                    <li><strong>Don't use casual speech with elders</strong> - shows deep disrespect</li>
+                    <li><strong>Don't mix speech levels randomly</strong> - be consistent</li>
+                    <li><strong>Avoid direct "you" pronouns</strong> with strangers or superiors</li>
+                    <li><strong>Don't call someone by name without appropriate suffix</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- PRACTICE SCENARIOS -->
+        <div class="content-section">
+            <h2>💪 Practice Scenarios</h2>
+            
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <h4>🏢 Job Interview</h4>
+                    <p><strong>Say:</strong> <span class="korean-text">안녕하십니까, 사장님</span></p>
+                    <p><span class="romanization">annyeonghasimnikka, sajangnim</span></p>
+                    <p>"How do you do, President"</p>
+                    <button class="audio-btn" onclick="speakKorean('안녕하십니까, 사장님')">🔊</button>
+                </div>
+                
+                <div class="tip-card">
+                    <h4>🍽️ Restaurant</h4>
+                    <p><strong>Say:</strong> <span class="korean-text">죄송해요, 메뉴 좀 보여주세요</span></p>
+                    <p><span class="romanization">joesonghaeyo, menyu jom boyeojuseyo</span></p>
+                    <p>"Excuse me, could you show me the menu?"</p>
+                    <button class="audio-btn" onclick="speakKorean('죄송해요, 메뉴 좀 보여주세요')">🔊</button>
+                </div>
+                
+                <div class="tip-card">
+                    <h4>🏫 University</h4>
+                    <p><strong>Say:</strong> <span class="korean-text">교수님, 질문이 있습니다</span></p>
+                    <p><span class="romanization">gyosunim, jilmun-i itseumnida</span></p>
+                    <p>"Professor, I have a question"</p>
+                    <button class="audio-btn" onclick="speakKorean('교수님, 질문이 있습니다')">🔊</button>
+                </div>
+                
+                <div class="tip-card">
+                    <h4>👨‍👩‍👧‍👦 Meeting Friend's Parents</h4>
+                    <p><strong>Say:</strong> <span class="korean-text">안녕하세요, 어머님, 아버님</span></p>
+                    <p><span class="romanization">annyeonghaseyo, eomeonim, abeonim</span></p>
+                    <p>"Hello, Mother, Father"</p>
+                    <button class="audio-btn" onclick="speakKorean('안녕하세요, 어머님, 아버님')">🔊</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- LEARNING STRATEGY -->
+        <div class="content-section">
+            <h2>🎓 3-Stage Learning Strategy</h2>
+            
+            <div class="step-by-step">
+                <h3>🌱 Stage 1: Foundation (Start Here!)</h3>
+                <ul>
+                    <li>Master polite endings (해요체) - use this as your default</li>
+                    <li>Learn basic titles (님, 씨)</li>
+                    <li>Use 저 instead of 나 in formal contexts</li>
+                    <li>Memorize family terms by gender</li>
+                    <li>Practice consistent formality levels</li>
+                </ul>
+            </div>
+
+            <div class="step-by-step" style="background: linear-gradient(135deg, #fff9e6, #ffeaa7); border-color: #f39c12;">
+                <h3>🌿 Stage 2: Grammar Integration</h3>
+                <ul>
+                    <li>Honorific verb suffixes (-시/-으시)</li>
+                    <li>Basic humble forms (드리다, 저희)</li>
+                    <li>Honorific particles (께서, 께)</li>
+                    <li>Suppletive honorific verbs</li>
+                    <li>Formal speech levels (하십시오체)</li>
+                </ul>
+            </div>
+
+            <div class="step-by-step" style="background: linear-gradient(135deg, #e8f5e8, #c8e6c9); border-color: #4caf50;">
+                <h3>🌳 Stage 3: Advanced Mastery</h3>
+                <ul>
+                    <li>Relative honorifics (압존법)</li>
+                    <li>Complex social situations</li>
+                    <li>Cultural nuances and exceptions</li>
+                    <li>Natural code-switching between levels</li>
+                    <li>Regional variations</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- EFFECTIVE PRACTICE -->
+        <div class="content-section">
+            <h2>💡 Effective Practice Methods</h2>
+            
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <h4>📺 Media Immersion</h4>
+                    <p>Watch Korean dramas, variety shows, and news. Pay attention to who uses what honorific level with whom. Family dramas are especially good for learning relationship dynamics.</p>
+                </div>
+                
+                <div class="tip-card">
+                    <h4>🎭 Role-Playing Practice</h4>
+                    <p>Practice different scenarios: job interviews, meeting elders, talking to friends. Switch roles to understand different perspectives and appropriate responses.</p>
+                </div>
+                
+                <div class="tip-card">
+                    <h4>📝 Writing Exercises</h4>
+                    <p>Write emails, texts, and formal letters using different honorific levels. Practice switching between casual and formal writing styles appropriately.</p>
+                </div>
+                
+                <div class="tip-card">
+                    <h4>🗣️ Conversation Practice</h4>
+                    <p>Find Korean conversation partners and explicitly discuss honorific usage. Most Koreans are happy to explain appropriate levels for different situations.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SUCCESS TIPS -->
+        <div class="content-section">
+            <h2>🌟 Key Success Tips</h2>
+            
+            <div class="key-rule">
+                <ul>
+                    <li><strong>Start conservatively:</strong> Begin with polite forms and adjust based on feedback</li>
+                    <li><strong>Observe and mirror:</strong> Pay attention to how Koreans speak to each other in similar situations</li>
+                    <li><strong>Ask when uncertain:</strong> "어떻게 말씀드릴까요?" (How should I address you?)</li>
+                    <li><strong>Be patient with yourself:</strong> Even native speakers sometimes struggle with complex honorific situations</li>
+                    <li><strong>Focus on respect:</strong> The goal is showing respect, not perfect grammar</li>
+                </ul>
+            </div>
+
+            <div class="step-by-step">
+                <h3>🎯 Remember: Cultural Understanding > Perfect Grammar</h3>
+                <p>Korean honorifics aren't just grammar rules - they're the key to respectful, appropriate communication in Korean society. Using them correctly shows cultural understanding and respect for Korean values. Koreans appreciate your effort to show respect, even if your usage isn't perfect!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get DOM elements
+        const menuBtn = document.getElementById('menuBtn');
+        const navMenu = document.getElementById('navMenu');
+        const overlay = document.getElementById('overlay');
+        const closeBtn = document.getElementById('closeBtn');
+
+        // Open menu function
+        function openMenu() {
+            navMenu.classList.add('active');
+            overlay.classList.add('active');
+            menuBtn.classList.add('hidden');
+        }
+
+        // Close menu function
+        function closeMenu() {
+            navMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            menuBtn.classList.remove('hidden');
+        }
+
+        // Event listeners
+        menuBtn.addEventListener('click', openMenu);
+        closeBtn.addEventListener('click', closeMenu);
+        overlay.addEventListener('click', closeMenu);
+
+        // Close menu with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeMenu();
+            }
+        });
+
+        // Text-to-Speech function for Korean pronunciation
+        function speakKorean(text) {
+            if ('speechSynthesis' in window) {
+                // Cancel any ongoing speech
+                speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'ko-KR'; // Korean language
+                utterance.rate = 0.8; // Slightly slower for clarity
+                utterance.pitch = 1;
+                utterance.volume = 1;
+                
+                // Try to find a Korean voice
+                const voices = speechSynthesis.getVoices();
+                const koreanVoice = voices.find(voice => voice.lang.includes('ko'));
+                if (koreanVoice) {
+                    utterance.voice = koreanVoice;
+                }
+                
+                speechSynthesis.speak(utterance);
+            } else {
+                alert('Sorry, your browser does not support text-to-speech functionality.');
+            }
+        }
+
+        // Load voices when they become available
+        speechSynthesis.addEventListener('voiceschanged', function() {
+            // Voices are now loaded
+        });
+    </script>
+</body>
+</html>
