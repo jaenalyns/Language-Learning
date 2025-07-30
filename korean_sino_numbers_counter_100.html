@@ -158,6 +158,11 @@
             transform: translateX(5px);
         }
 
+        .nav-item a.current {
+            background: rgba(255, 140, 0, 0.5);
+            border-left: 4px solid #FF8C00;
+        }
+
         .nav-toggle {
             position: fixed;
             top: 20px;
@@ -397,15 +402,30 @@
     <!-- Slide-out Navigation Menu -->
     <nav class="nav-menu">
         <button class="nav-close" onclick="closeNav()">×</button>
-        <h3>🇰🇷 Korean Learning ×</h3>
+        <h3>🇰🇷 Korean Learning</h3>
         <div class="nav-item">
-            <a href="https://jaenalyns.github.io/Language-Learning/korean_learning_guide.html" target="_blank">🏠 Homepage</a>
+            <a href="index.html">🏠 Home</a>
         </div>
         <div class="nav-item">
-            <a href="https://claude.ai/public/artifacts/a4dc6381-6af9-43dd-bb45-d9b549d6896f" target="_blank">🔢 Korean Numbers</a>
+            <a href="korean_reading_guide.html">📚 Korean Alphabet</a>
         </div>
         <div class="nav-item">
-            <a href="https://claude.ai/public/artifacts/99e5fab4-ed45-47f8-8a6d-c8115df63a6c" target="_blank">📖 Survival Phrases</a>
+            <a href="korean_native_number_counter_100.html">🔢 Native Numbers</a>
+        </div>
+        <div class="nav-item">
+            <a href="korean_sino_numbers_counter_100.html" class="current">🀄 Sino-Korean Numbers</a>
+        </div>
+        <div class="nav-item">
+            <a href="korean_survival_phrases.html">💬 Survival Phrases</a>
+        </div>
+        <div class="nav-item">
+            <a href="korean_grammar_structure.html">📝 Grammar Structure</a>
+        </div>
+        <div class="nav-item">
+            <a href="korean_verb_structure.html">⚡ Verb Conjugation</a>
+        </div>
+        <div class="nav-item">
+            <a href="korean_honorifics_guide.html">🎭 Korean Honorifics</a>
         </div>
     </nav>
 
