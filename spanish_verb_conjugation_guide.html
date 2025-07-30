@@ -1,0 +1,1820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spanish Verb Conjugation Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Neue', 'Kalam', 'Caveat', cursive, sans-serif;
+            line-height: 1.6;
+            background: #f8f9fa;
+            background-image: 
+                linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px),
+                linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+            min-height: 100vh;
+            padding: 20px;
+            color: #2c3e50;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: visible;
+            border: 2px solid #3498db;
+            position: relative;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-bottom: 3px solid #2c3e50;
+        }
+
+        .header h1 {
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-family: 'Comic Neue', cursive;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            font-weight: 500;
+        }
+
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            left: -350px;
+            width: 350px;
+            height: 100vh;
+            background: #2c3e50;
+            padding: 60px 20px 20px 20px;
+            transition: left 0.3s ease;
+            z-index: 1000;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+        }
+
+        .nav-menu.active {
+            left: 0;
+        }
+
+        .nav-header {
+            color: white;
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .nav-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .nav-menu a {
+            display: block;
+            margin: 8px 0;
+            padding: 15px 20px;
+            background: #34495e;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .nav-menu a:hover {
+            background: #3498db;
+            border-left: 4px solid #2980b9;
+            transform: translateX(5px);
+        }
+
+        .menu-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .menu-button:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        .menu-button.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .content {
+            padding: 30px;
+            background: white;
+            margin-left: 0;
+            transition: margin-left 0.3s ease;
+        }
+
+        .content.shifted {
+            margin-left: 350px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding: 25px;
+            border-radius: 15px;
+            border: 3px solid;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            position: relative;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: 20px;
+            right: 20px;
+            height: 25px;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 15px,
+                rgba(0,0,0,0.1) 15px,
+                rgba(0,0,0,0.1) 16px
+            );
+        }
+
+        .section h2 {
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Comic Neue', cursive;
+            font-weight: 700;
+            text-decoration: underline;
+            text-decoration-thickness: 3px;
+        }
+
+        .section h3 {
+            font-size: 1.6em;
+            margin: 20px 0 15px 0;
+            font-family: 'Comic Neue', cursive;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .handwritten {
+            font-family: 'Kalam', 'Caveat', cursive;
+            font-size: 1.1em;
+            transform: rotate(-0.5deg);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border: 2px solid #2c3e50;
+            font-family: 'Kalam', cursive;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 2px solid #ecf0f1;
+            font-size: 1.1em;
+        }
+
+        th {
+            background: #34495e;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2em;
+            text-align: center;
+        }
+
+        td {
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        tr:hover {
+            background: #e3f2fd;
+            transition: background 0.3s ease;
+        }
+
+        .rule-box {
+            background: #fff;
+            padding: 20px 20px 20px 40px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 3px dashed #3498db;
+            font-family: 'Kalam', cursive;
+            font-size: 1.1em;
+            position: relative;
+        }
+
+        .rule-box::before {
+            content: "📝";
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: white;
+            padding: 0 10px;
+            font-size: 1.5em;
+        }
+
+        .emoji {
+            font-size: 1.8em;
+            margin-right: 15px;
+        }
+
+        .highlight {
+            background: #ffeb3b;
+            color: #2c3e50;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: 700;
+            border: 2px solid #fbc02d;
+        }
+
+        .warning-box {
+            background: #fff3e0;
+            border: 3px dashed #ff9800;
+            border-radius: 10px;
+            padding: 20px 20px 20px 40px;
+            margin: 20px 0;
+            position: relative;
+            font-family: 'Kalam', cursive;
+        }
+
+        .warning-box::before {
+            content: "⚠️";
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: #fff3e0;
+            padding: 0 10px;
+            font-size: 1.5em;
+        }
+
+        .warning-box h3 {
+            color: #e65100;
+            margin-bottom: 15px;
+            font-family: 'Comic Neue', cursive;
+        }
+
+        .example-box {
+            background: #e8f5e8;
+            padding: 20px 20px 20px 40px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 3px solid #4caf50;
+            position: relative;
+            font-family: 'Kalam', cursive;
+        }
+
+        .example-box::before {
+            content: "💬";
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: #e8f5e8;
+            padding: 0 10px;
+            font-size: 1.5em;
+        }
+
+        .example-box h4 {
+            color: #2e7d32;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            font-family: 'Comic Neue', cursive;
+            font-weight: 600;
+        }
+
+        .example-sentence {
+            margin: 12px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border-left: 5px solid #4caf50;
+            font-size: 1.1em;
+        }
+
+        .spanish {
+            color: #c62828;
+            font-weight: 700;
+            font-size: 1.2em;
+        }
+
+        .english {
+            color: #424242;
+            font-style: italic;
+            margin-top: 5px;
+        }
+
+        .handwritten-title {
+            font-family: 'Kalam', cursive;
+            transform: rotate(-1deg);
+            color: #2c3e50;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        ul {
+            font-family: 'Kalam', cursive;
+            font-size: 1.1em;
+            line-height: 1.8;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        /* Section-specific colors */
+        .summary {
+            background: #fffbeb;
+            border-color: #f59e0b;
+            color: #2d3748;
+        }
+
+        .basic-structure {
+            background: #fff5f5;
+            border-color: #e53e3e;
+            color: #2d3748;
+        }
+
+        .present {
+            background: #fffaf0;
+            border-color: #dd6b20;
+            color: #2d3748;
+        }
+
+        .preterite {
+            background: #f0fff4;
+            border-color: #38a169;
+            color: #2d3748;
+        }
+
+        .imperfect {
+            background: #f0f8ff;
+            border-color: #3182ce;
+            color: #2d3748;
+        }
+
+        .future {
+            background: #f7fafc;
+            border-color: #4a5568;
+            color: #2d3748;
+        }
+
+        .conditional {
+            background: #faf5ff;
+            border-color: #805ad5;
+            color: #2d3748;
+        }
+
+        .subjunctive {
+            background: #fffbf0;
+            border-color: #d69e2e;
+            color: #2d3748;
+        }
+
+        .perfect-tenses {
+            background: #fef7ff;
+            border-color: #a855f7;
+            color: #2d3748;
+        }
+
+        .progressive {
+            background: #f0fdf4;
+            border-color: #16a34a;
+            color: #2d3748;
+        }
+
+        .imperative {
+            background: #fef2f2;
+            border-color: #dc2626;
+            color: #2d3748;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+            
+            .header h1 {
+                font-size: 2.2em;
+            }
+            
+            .nav-menu {
+                width: 280px;
+                left: -280px;
+            }
+            
+            .nav-menu a {
+                display: block;
+                margin: 5px 0;
+            }
+            
+            table {
+                font-size: 0.9em;
+            }
+            
+            th, td {
+                padding: 10px 8px;
+            }
+
+            .section h2 {
+                font-size: 1.8em;
+            }
+
+            .content.shifted {
+                margin-left: 0;
+            }
+
+            .menu-button {
+                position: fixed;
+                top: 10px;
+                left: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="handwritten-title">🇪🇸 Spanish Verb Conjugation Guide</h1>
+            <p>Master All Spanish Tenses and Moods</p>
+        </header>
+
+        <button class="menu-button" onclick="toggleMenu()">≡ Menu</button>
+        <div class="menu-overlay" onclick="closeMenu()"></div>
+
+        <nav class="nav-menu" id="navMenu">
+            <button class="nav-close" onclick="closeMenu()">×</button>
+            <div class="nav-header">Spanish Learning</div>
+            <a href="#basic">🔹 Basic Structure</a>
+            <a href="#present">🕒 Present Tense</a>
+            <a href="#preterite">🕓 Preterite</a>
+            <a href="#imperfect">🕔 Imperfect</a>
+            <a href="#future">🕘 Future</a>
+            <a href="#conditional">🤔 Conditional</a>
+            <a href="#subjunctive">💭 Subjunctive</a>
+            <a href="#perfect-tenses">✨ Perfect Tenses</a>
+            <a href="#progressive">🔄 Progressive</a>
+            <a href="#imperative">❗ Imperative</a>
+            <a href="#summary">🎯 Quick Reference</a>
+        </nav>
+
+        <div class="content">
+            <!-- 1. Basic Structure -->
+            <section id="basic" class="section basic-structure">
+                <h2 class="handwritten-title"><span class="emoji">🔹</span>Basic Structure</h2>
+                
+                <div class="rule-box">
+                    <strong>Infinitive forms:</strong> Spanish verbs end in <span class="highlight">-AR</span>, <span class="highlight">-ER</span>, or <span class="highlight">-IR</span>
+                </div>
+
+                <div class="rule-box">
+                    <strong>How conjugation works:</strong>
+                    <ul>
+                        <li>Remove the infinitive ending (-ar, -er, -ir)</li>
+                        <li>Add the appropriate ending based on:</li>
+                        <ul>
+                            <li>Who is doing the action (yo, tú, él/ella, etc.)</li>
+                            <li>When it happens (present, past, future)</li>
+                            <li>The mood (indicative, subjunctive, etc.)</li>
+                        </ul>
+                    </ul>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Verb Type</th>
+                            <th>Infinitive</th>
+                            <th>Meaning</th>
+                            <th>Stem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>-AR</td>
+                            <td><strong>hablar</strong></td>
+                            <td>to speak</td>
+                            <td>habl-</td>
+                        </tr>
+                        <tr>
+                            <td>-ER</td>
+                            <td><strong>comer</strong></td>
+                            <td>to eat</td>
+                            <td>com-</td>
+                        </tr>
+                        <tr>
+                            <td>-IR</td>
+                            <td><strong>vivir</strong></td>
+                            <td>to live</td>
+                            <td>viv-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- 2. Present Tense -->
+            <section id="present" class="section present">
+                <h2 class="handwritten-title"><span class="emoji">🕒</span>Present Tense (Presente)</h2>
+                
+                <div class="rule-box handwritten">
+                    <strong>Use for:</strong> Actions happening now, habitual actions, general truths
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Person</th>
+                            <th>-AR (hablar)</th>
+                            <th>-ER (comer)</th>
+                            <th>-IR (vivir)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>yo</strong></td>
+                            <td>hablo</td>
+                            <td>como</td>
+                            <td>vivo</td>
+                        </tr>
+                        <tr>
+                            <td><strong>tú</strong></td>
+                            <td>hablas</td>
+                            <td>comes</td>
+                            <td>vives</td>
+                        </tr>
+                        <tr>
+                            <td><strong>él/ella/usted</strong></td>
+                            <td>habla</td>
+                            <td>come</td>
+                            <td>vive</td>
+                        </tr>
+                        <tr>
+                            <td><strong>nosotros</strong></td>
+                            <td>hablamos</td>
+                            <td>comemos</td>
+                            <td>vivimos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>vosotros</strong></td>
+                            <td>habláis</td>
+                            <td>coméis</td>
+                            <td>vivís</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ellos/ellas/ustedes</strong></td>
+                            <td>hablan</td>
+                            <td>comen</td>
+                            <td>viven</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="example-box">
+                    <h4>Example Sentences:</h4>
+                    <div class="example-sentence">
+                        <div class="spanish">Yo hablo español todos los días.</div>
+                        <div class="english">I speak Spanish every day.</div>
+                    </div>
+                    <div class="example-sentence">
+                        <div class="spanish">Ella come una manzana.</div>
+                        <div class="english">She eats an apple.</div>
+                    </div>
+                    <div class="example-sentence">
+                        <div class="spanish">Nosotros vivimos en Madrid.</div>
+                        <div class="english">We live in Madrid.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Preterite -->
+            <section id="preterite" class="section preterite">
+                <h2 class="handwritten-title"><span class="emoji">🕓</span>Preterite (Pretérito)</h2>
+                
+                <div class="rule-box handwritten">
+                    <strong>Use for:</strong> Completed actions in the past, specific events that happened at a definite time
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Person</th>
+                            <th>-AR (hablar)</th>
+                            <th>-ER (comer)</th>
+                            <th>-IR (vivir)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>yo</strong></td>
+                            <td>hablé</td>
+                            <td>comí</td>
+                            <td>viví</td>
+                        </tr>
+                        <tr>
+                            <td><strong>tú</strong></td>
+                            <td>hablaste</td>
+                            <td>comiste</td>
+                            <td>viviste</td>
+                        </tr>
+                        <tr>
+                            <td><strong>él/ella/usted</strong></td>
+                            <td>habló</td>
+                            <td>comió</td>
+                            <td>vivió</td>
+                        </tr>
+                        <tr>
+                            <td><strong>nosotros</strong></td>
+                            <td>hablamos</td>
+                            <td>comimos</td>
+                            <td>vivimos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>vosotros</strong></td>
+                            <td>hablasteis</td>
+                            <td>comisteis</td>
+                            <td>vivisteis</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ellos/ellas/ustedes</strong></td>
+                            <td>hablaron</td>
+                            <td>comieron</td>
+                            <td>vivieron</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="example-box">
+                    <h4>Example Sentences:</h4>
+                    <div class="example-sentence">
+                        <div class="spanish">Ayer hablé con mi madre.</div>
+                        <div class="english">Yesterday I spoke with my mother.</div>
+                    </div>
+                    <div class="example-sentence">
+                        <div class="spanish">Ella comió en ese restaurante la semana pasada.</div>
+                        <div class="english">She ate at that restaurant last week.</div>
+                    </div>
+                    <div class="example-sentence">
+                        <div class="spanish">Vivimos en París por dos años.</div>
+                        <div class="english">We lived in Paris for two years.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. Imperfect -->
+            <section id="imperfect" class="section imperfect">
+                <h2 class="handwritten-title"><span class="emoji">🕔</span>Imperfect (Imperfecto)</h2>
+                
+                <div class="rule-box handwritten">
+                    <strong>Use for:</strong> Ongoing past actions, habitual past actions, descriptions in the past
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Person</th>
+                            <th>-AR (hablar)</th>
+                            <th>-ER (comer)</th>
+                            <th>-IR (vivir)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>yo</strong></td>
+                            <td>hablaba</td>
+                            <td>comía</td>
+                            <td>vivía</td>
+                        </tr>
+                        <tr>
+                            <td><strong>tú</strong></td>
+                            <td>hablabas</td>
+                            <td>comías</td>
+                            <td>vivías</td>
+                        </tr>
+                        <tr>
+                            <td><strong>él/ella/usted</strong></td>
+                            <td>hablaba</td>
+                            <td>comía</td>
+                            <td>vivía</td>
+                        </tr>
+                        <tr>
+                            <td><strong>nosotros</strong></td>
+                            <td>hablábamos</td>
+                            <td>comíamos</td>
+                            <td>vivíamos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>vosotros</strong></td>
+                            <td>hablabais</td>
+                            <td>comíais</td>
+                            <td>vivíais</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ellos/ellas/ustedes</strong></td>
+                            <td>hablaban</td>
+                            <td>comían</td>
+                            <td>vivían</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="example-box">
+                    <h4>Example Sentences:</h4>
+                    <div class="example-sentence">
+                        <div class="spanish">Cuando era niño, hablaba mucho.</div>
+                        <div class="english">When I was a child, I used to talk a lot.</div>
+                    </div>
+                    <div class="example-sentence">
+                        <div class="spanish">Ella comía en ese café todos los días.</div>
+                        <div class="english">She used to eat at that café every day.</div>
+                    </div>
+                    <div class="example-sentence">
+                        <div class="spanish">Vivíamos cerca del parque.</div>
+                        <div class="english">We used to live near the park.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. Future -->
+            <section id="future" class="section future">
+                <h2 class="handwritten-title"><span class="emoji">🕘</span>Future Tense (Futuro)</h2>
+                
+                <div class="rule-box handwritten">
+                    <strong>Formation:</strong> Keep the entire infinitive and add future endings: <span class="highlight">-é, -ás, -á, -emos, -éis, -án</span>
+                </div>
+
+                <div class="rule-box handwritten">
+                    <strong>Use for:</strong> Actions that will happen, predictions, suppositions
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Person</th>
+                            <th>hablar</th>
+                            <th>comer</th>
+                            <th>vivir</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>yo</strong></td>
+                            <td>hablaré</td>
+                            <td>comeré</td>
+                            <td>viviré</td>
+                        </tr>
+                        <tr>
+                            <td><strong>tú</strong></td>
+                            <td>hablarás</td>
+                            <td>comerás</td>
+                            <td>vivirás</td>
+                        </tr>
+                        <tr>
+                            <td><strong>él/ella/usted</strong></td>
+                            <td>hablará</td>
+                            <td>comerá</td>
+                            <td>vivirá</td>
+                        </tr>
+                        <tr>
+                            <td><strong>nosotros</strong></td>
+                            <td>hablaremos</td>
+                            <td>comeremos</td>
+                            <td>viviremos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>vosotros</strong></td>
+                            <td>hablaréis</td>
+                            <td>comeréis</td>
+                            <td>viviréis</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ellos/ellas/ustedes</strong></td>
+                            <td>hablarán</td>
+                            <td>comerán</td>
+                            <td>vivirán</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="example-box">
+                    <h4>Example Sentences:</h4>
+                    <div class="example-sentence">
+                        <div class="spanish">Mañana hablaré con el jefe.</div>
+                        <div class="english">Tomorrow I will speak with the boss.</div>
+                    </div>
+                    <div class="example-sentence">
+                        <div class="spanish">¿Comerás conmigo esta noche?</div>
+                        <div class="english">Will you eat with me tonight?</div>
+                    </div>
+                    <div class="example-sentence">
+                        <div class="spanish">Viviremos en una casa nueva.</div>
+                        <div class="english">We will live in a new house.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. Conditional -->
+            <section id="conditional" class="section conditional">
+                <h2 class="handwritten-title"><span class="emoji">🤔</span>Conditional (Condicional)</h2>
+                
+                <div class="rule-box handwritten">
+                    <strong>Formation:</strong> Infinitive + <span class="highlight">-ía, -ías, -ía, -íamos, -íais, -ían</span>
+                </div>
+
+                <div class="rule-box handwritten">
+                    <strong>Use for:</strong> Hypothetical situations, polite requests, "would" statements
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Person</th>
+                            <th>hablar</th>
+                            <th>comer</th>
+                            <th>vivir</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>yo</strong></td>
+                            <td>hablaría</td>
+                            <td>comería</td>
+                            <td>viviría</td>
+                        </tr>
+                        <tr>
+                            <td><strong>tú</strong></td>
+                            <td>hablarías</td>
+                            <td>comerías</td>
+                            <td>vivirías</td>
+                        </tr>
+                        <tr>
+                            <td><strong>él/ella/usted</strong></td>
+                            <td>hablaría</td>
+                            <td>comería</td>
+                            <td>viviría</td>
+                        </tr>
+                        <tr>
+                            <td><strong>nosotros</strong></td>
+                            <td>hablaríamos</td>
+                            <td>comeríamos</td>
+                            <td>viviríamos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>vosotros</strong></td>
+                            <td>hablaríais</td>
+                            <td>comeríais</td>
+                            <td>viviríais</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ellos/ellas/ustedes</strong></td>
+                            <td>hablarían</td>
+                            <td>comerían</td>
+                            <td>vivirían</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="example-box">
+                    <h4>Example Sentences:</h4>
+                    <div class="example-sentence">
+                        <div class="spanish">¿Podrías hablar más despacio?</div>
+                        <div class="english">Could you speak more slowly?</div>
+                    </div>
+                    <div class="example-sentence">
+                        <div class="spanish">Yo comería pizza todos los días.</div>
+                        <div class="english">I would eat pizza every day.</div>
+                    </div>
+                    <div class="example-sentence">
+                        <div class="spanish">Viviríamos en la playa si pudiéramos.</div>
+                        <div class="english">We would live at the beach if we could.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 7. Subjunctive -->
+            <section id="subjunctive" class="section subjunctive">
+                <h2 class="handwritten-title"><span class="emoji">💭</span>Subjunctive (Subjuntivo)</h2>
+
+                <h3 class="handwritten-title">Present Subjunctive</h3>
+                <div class="rule-box handwritten">
+                    <strong>Formation:</strong> Take the "yo" form of present tense, drop the -o, add opposite endings:
+                    <ul>
+                        <li>-AR verbs get -ER endings</li>
+                        <li>-ER/-IR verbs get -AR endings</li>
+                    </ul>
+                </div>
+                <div class="rule-box handwritten">
+                    <strong>Use for:</strong> Doubt, emotion, desire, hypothetical situations, after certain expressions
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Person</th>
+                            <th>-AR (hablar)</th>
+                            <th>-ER (comer)</th>
+                            <th>-IR (vivir)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>yo</strong></td>
+                            <td>hable</td>
+                            <td>coma</td>
+                            <td>viva</td>
+                        </tr>
+                        <tr>
+                            <td><strong>tú</strong></td>
+                            <td>hables</td>
+                            <td>comas</td>
+                            <td>vivas</td>
+                        </tr>
+                        <tr>
+                            <td><strong>él/ella/usted</strong></td>
+                            <td>hable</td>
+                            <td>coma</td>
+                            <td>viva</td>
+                        </tr>
+                        <tr>
+                            <td><strong>nosotros</strong></td>
+                            <td>hablemos</td>
+                            <td>comamos</td>
+                            <td>vivamos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>vosotros</strong></td>
+                            <td>habléis</td>
+                            <td>comáis</td>
+                            <td>viváis</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ellos/ellas/ustedes</strong></td>
+                            <td>hablen</td>
+                            <td>coman</td>
+                            <td>vivan</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="example-box">
+                    <h4>Example Sentences:</h4>
+                    <div class="example-sentence">
+                        <div class="spanish">Espero que hables con él.</div>
+                        <div class="english">I hope you speak with him.</div>
+                    </div>
+                    <div class="example-sentence">
+                        <div class="spanish">Dudo que coma verduras.</div>
+                        <div class="english">I doubt he eats vegetables.</div>
+                    </div>
+                    <div class="example-sentence">
+                        <div class="spanish">Es importante que vivamos en paz.</div>
+                        <div class="english">It's important that we live in peace.</div>
+                    </div>
+                </div>
+
+                <h3 class="handwritten-title">Imperfect Subjunctive</h3>
+                <div class="rule-box handwritten">
+                    <strong>Formation:</strong> Take the 3rd person plural preterite, drop -ron, add endings: <span class="highlight">-ra, -ras, -ra, -ramos, -rais, -ran</span>
+                </div>
+                <div class="rule-box handwritten">
+                    <strong>Use for:</strong> Past subjunctive situations, hypothetical past events, polite requests in the past
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Person</th>
+                            <th>-AR (hablar)</th>
+                            <th>-ER (comer)</th>
+                            <th>-IR (vivir)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>yo</strong></td>
+                            <td>hablara</td>
+                            <td>comiera</td>
+                            <td>viviera</td>
+                        </tr>
+                        <tr>
+                            <td><strong>tú</strong></td>
+                            <td>hablaras</td>
+                            <td>comieras</td>
+                            <td>vivieras</td>
+                        </tr>
+                        <tr>
+                            <td><strong>él/ella/usted</strong></td>
+                            <td>hablara</td>
+                            <td>comiera</td>
+                            <td>viviera</td>
+                        </tr>
+                        <tr>
+                            <td><strong>nosotros</strong></td>
+                            <td>habláramos</td>
+                            <td>comiéramos</td>
+                            <td>viviéramos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>vosotros</strong></td>
+                            <td>hablarais</td>
+                            <td>comierais</td>
+                            <td>vivierais</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ellos/ellas/ustedes</strong></td>
+                            <td>hablaran</td>
+                            <td>comieran</td>
+                            <td>vivieran</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="example-box">
+                    <h4>Example Sentences:</h4>
+                    <div class="example-sentence">
+                        <div class="spanish">Si hablara español, viajaría a México.</div>
+                        <div class="english">If I spoke Spanish, I would travel to Mexico.</div>
+                    </div>
+                    <div class="example-sentence">
+                        <div class="spanish">Ojalá comiera más saludable.</div>
+                        <div class="english">I wish I ate healthier.</div>
+                    </div>
+                    <div class="example-sentence">
+                        <div class="spanish">Era posible que vivieran allí.</div>
+                        <div class="english">It was possible that they lived there.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 8. Perfect Tenses -->
+            <section id="perfect-tenses" class="section perfect-tenses">
+                <h2 class="handwritten-title"><span class="emoji">✨</span>Perfect Tenses</h2>
+                
+                <div class="rule-box handwritten">
+                    <strong>Formation:</strong> HABER (to have) + past participle
+                    <br><strong>Past participle:</strong> -AR verbs → -ado, -ER/-IR verbs → -ido
+                </div>
+
+                <h3 class="handwritten-title">Present Perfect (Pretérito Perfecto)</h3>
+                <div class="rule-box handwritten">
+                    <strong>Use for:</strong> Actions completed recently or with connection to present
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Person</th>
+                            <th>HABER</th>
+                            <th>+ hablado</th>
+                            <th>+ comido</th>
+                            <th>+ vivido</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>yo</strong></td>
+                            <td>he</td>
+                            <td>he hablado</td>
+                            <td>he comido</td>
+                            <td>he vivido</td>
+                        </tr>
+                        <tr>
+                            <td><strong>tú</strong></td>
+                            <td>has</td>
+                            <td>has hablado</td>
+                            <td>has comido</td>
+                            <td>has vivido</td>
+                        </tr>
+                        <tr>
+                            <td><strong>él/ella/usted</strong></td>
+                            <td>ha</td>
+                            <td>ha hablado</td>
+                            <td>ha comido</td>
+                            <td>ha vivido</td>
+                        </tr>
+                        <tr>
+                            <td><strong>nosotros</strong></td>
+                            <td>hemos</td>
+                            <td>hemos hablado</td>
+                            <td>hemos comido</td>
+                            <td>hemos vivido</td>
+                        </tr>
+                        <tr>
+                            <td><strong>vosotros</strong></td>
+                            <td>habéis</td>
+                            <td>habéis hablado</td>
+                            <td>habéis comido</td>
+                            <td>habéis vivido</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ellos/ellas/ustedes</strong></td>
+                            <td>han</td>
+                            <td>han hablado</td>
+                            <td>han comido</td>
+                            <td>han vivido</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="example-box">
+                    <h4>Example Sentences:</h4>
+                    <div class="example-sentence">
+                        <div class="spanish">He hablado con María esta mañana.</div>
+                        <div class="english">I have spoken with María this morning.</div>
+                    </div>
+                    <div class="example-sentence">
+                        <div class="spanish">¿Has comido algo hoy?</div>
+                        <div class="english">Have you eaten anything today?</div>
+                    </div>
+                    <div class="example-sentence">
+                        <div class="spanish">Hemos vivido aquí por cinco años.</div>
+                        <div class="english">We have lived here for five years.</div>
+                    </div>
+                </div>
+
+                <h3 class="handwritten-title">Past Perfect (Pluscuamperfecto)</h3>
+                <div class="rule-box handwritten">
+                    <strong>Use for:</strong> Actions completed before another past action
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Person</th>
+                            <th>HABER (imperfect)</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>yo</strong></td>
+                            <td>había</td>
+                            <td>había hablado</td>
+                        </tr>
+                        <tr>
+                            <td><strong>tú</strong></td>
+                            <td>habías</td>
+                            <td>habías comido</td>
+                        </tr>
+                        <tr>
+                            <td><strong>él/ella/usted</strong></td>
+                            <td>había</td>
+                            <td>había vivido</td>
+                        </tr>
+                        <tr>
+                            <td><strong>nosotros</strong></td>
+                            <td>habíamos</td>
+                            <td>habíamos hablado</td>
+                        </tr>
+                        <tr>
+                            <td><strong>vosotros</strong></td>
+                            <td>habíais</td>
+                            <td>habíais comido</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ellos/ellas/ustedes</strong></td>
+                            <td>habían</td>
+                            <td>habían vivido</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="example-box">
+                    <h4>Example Sentences:</h4>
+                    <div class="example-sentence">
+                        <div class="spanish">Ya había hablado con él cuando llegaste.</div>
+                        <div class="english">I had already spoken with him when you arrived.</div>
+                    </div>
+                    <div class="example-sentence">
+                        <div class="spanish">Habíamos comido antes de ir al cine.</div>
+                        <div class="english">We had eaten before going to the movies.</div>
+                    </div>
+                </div>
+
+                <h3 class="handwritten-title">Future Perfect (Futuro Perfecto)</h3>
+                <div class="rule-box handwritten">
+                    <strong>Use for:</strong> Actions that will be completed by a certain time in the future
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Person</th>
+                            <th>HABER (future)</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>yo</strong></td>
+                            <td>habré</td>
+                            <td>habré hablado</td>
+                        </tr>
+                        <tr>
+                            <td><strong>tú</strong></td>
+                            <td>habrás</td>
+                            <td>habrás comido</td>
+                        </tr>
+                        <tr>
+                            <td><strong>él/ella/usted</strong></td>
+                            <td>habrá</td>
+                            <td>habrá vivido</td>
+                        </tr>
+                        <tr>
+                            <td><strong>nosotros</strong></td>
+                            <td>habremos</td>
+                            <td>habremos hablado</td>
+                        </tr>
+                        <tr>
+                            <td><strong>vosotros</strong></td>
+                            <td>habréis</td>
+                            <td>habréis comido</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ellos/ellas/ustedes</strong></td>
+                            <td>habrán</td>
+                            <td>habrán vivido</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="example-box">
+                    <h4>Example Sentences:</h4>
+                    <div class="example-sentence">
+                        <div class="spanish">Para mañana, habré hablado con todos.</div>
+                        <div class="english">By tomorrow, I will have spoken with everyone.</div>
+                    </div>
+                    <div class="example-sentence">
+                        <div class="spanish">Habrás comido antes de las ocho.</div>
+                        <div class="english">You will have eaten before eight o'clock.</div>
+                    </div>
+                </div>
+
+                <h3 class="handwritten-title">Conditional Perfect (Condicional Perfecto)</h3>
+                <div class="rule-box handwritten">
+                    <strong>Use for:</strong> Actions that would have been completed under certain conditions
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Person</th>
+                            <th>HABER (conditional)</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>yo</strong></td>
+                            <td>habría</td>
+                            <td>habría hablado</td>
+                        </tr>
+                        <tr>
+                            <td><strong>tú</strong></td>
+                            <td>habrías</td>
+                            <td>habrías comido</td>
+                        </tr>
+                        <tr>
+                            <td><strong>él/ella/usted</strong></td>
+                            <td>habría</td>
+                            <td>habría vivido</td>
+                        </tr>
+                        <tr>
+                            <td><strong>nosotros</strong></td>
+                            <td>habríamos</td>
+                            <td>habríamos hablado</td>
+                        </tr>
+                        <tr>
+                            <td><strong>vosotros</strong></td>
+                            <td>habríais</td>
+                            <td>habríais comido</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ellos/ellas/ustedes</strong></td>
+                            <td>habrían</td>
+                            <td>habrían vivido</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="example-box">
+                    <h4>Example Sentences:</h4>
+                    <div class="example-sentence">
+                        <div class="spanish">Habría hablado contigo si hubiera tenido tiempo.</div>
+                        <div class="english">I would have spoken with you if I had had time.</div>
+                    </div>
+                    <div class="example-sentence">
+                        <div class="spanish">Habrían comido más si hubiera habido comida.</div>
+                        <div class="english">They would have eaten more if there had been food.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 9. Progressive Tenses -->
+            <section id="progressive" class="section progressive">
+                <h2 class="handwritten-title"><span class="emoji">🔄</span>Progressive Tenses</h2>
+                
+                <div class="rule-box handwritten">
+                    <strong>Use for:</strong> Ongoing actions in progress at a specific moment
+                </div>
+                <div class="rule-box handwritten">
+                    <strong>Formation:</strong> ESTAR + present participle (-ando/-iendo)
+                </div>
+
+                <h3 class="handwritten-title">Present Progressive (Presente Continuo)</h3>
+                <div class="rule-box handwritten">
+                    <strong>Use for:</strong> Actions happening right now, temporary situations
+                </div>
+                <div class="rule-box handwritten">
+                    <strong>Present participle formation:</strong>
+                    <ul>
+                        <li>-AR verbs: stem + <span class="highlight">-ando</span> (hablando)</li>
+                        <li>-ER/-IR verbs: stem + <span class="highlight">-iendo</span> (comiendo, viviendo)</li>
+                    </ul>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Person</th>
+                            <th>ESTAR (present)</th>
+                            <th>+ hablando</th>
+                            <th>+ comiendo</th>
+                            <th>+ viviendo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>yo</strong></td>
+                            <td>estoy</td>
+                            <td>estoy hablando</td>
+                            <td>estoy comiendo</td>
+                            <td>estoy viviendo</td>
+                        </tr>
+                        <tr>
+                            <td><strong>tú</strong></td>
+                            <td>estás</td>
+                            <td>estás hablando</td>
+                            <td>estás comiendo</td>
+                            <td>estás viviendo</td>
+                        </tr>
+                        <tr>
+                            <td><strong>él/ella/usted</strong></td>
+                            <td>está</td>
+                            <td>está hablando</td>
+                            <td>está comiendo</td>
+                            <td>está viviendo</td>
+                        </tr>
+                        <tr>
+                            <td><strong>nosotros</strong></td>
+                            <td>estamos</td>
+                            <td>estamos hablando</td>
+                            <td>estamos comiendo</td>
+                            <td>estamos viviendo</td>
+                        </tr>
+                        <tr>
+                            <td><strong>vosotros</strong></td>
+                            <td>estáis</td>
+                            <td>estáis hablando</td>
+                            <td>estáis comiendo</td>
+                            <td>estáis viviendo</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ellos/ellas/ustedes</strong></td>
+                            <td>están</td>
+                            <td>están hablando</td>
+                            <td>están comiendo</td>
+                            <td>están viviendo</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="example-box">
+                    <h4>Example Sentences:</h4>
+                    <div class="example-sentence">
+                        <div class="spanish">Estoy hablando por teléfono.</div>
+                        <div class="english">I am talking on the phone.</div>
+                    </div>
+                    <div class="example-sentence">
+                        <div class="spanish">¿Qué estás comiendo?</div>
+                        <div class="english">What are you eating?</div>
+                    </div>
+                    <div class="example-sentence">
+                        <div class="spanish">Estamos viviendo tiempos difíciles.</div>
+                        <div class="english">We are living through difficult times.</div>
+                    </div>
+                </div>
+
+                <h3 class="handwritten-title">Past Progressive (Pasado Continuo)</h3>
+                <div class="rule-box handwritten">
+                    <strong>Use for:</strong> Actions that were in progress at a specific moment in the past
+                </div>
+                <div class="rule-box handwritten">
+                    <strong>Formation:</strong> ESTAR (imperfect) + present participle
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Person</th>
+                            <th>ESTAR (imperfect)</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>yo</strong></td>
+                            <td>estaba</td>
+                            <td>estaba hablando</td>
+                        </tr>
+                        <tr>
+                            <td><strong>tú</strong></td>
+                            <td>estabas</td>
+                            <td>estabas comiendo</td>
+                        </tr>
+                        <tr>
+                            <td><strong>él/ella/usted</strong></td>
+                            <td>estaba</td>
+                            <td>estaba viviendo</td>
+                        </tr>
+                        <tr>
+                            <td><strong>nosotros</strong></td>
+                            <td>estábamos</td>
+                            <td>estábamos hablando</td>
+                        </tr>
+                        <tr>
+                            <td><strong>vosotros</strong></td>
+                            <td>estabais</td>
+                            <td>estabais comiendo</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ellos/ellas/ustedes</strong></td>
+                            <td>estaban</td>
+                            <td>estaban viviendo</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="example-box">
+                    <h4>Example Sentences:</h4>
+                    <div class="example-sentence">
+                        <div class="spanish">Estaba hablando cuando llegaste.</div>
+                        <div class="english">I was talking when you arrived.</div>
+                    </div>
+                    <div class="example-sentence">
+                        <div class="spanish">Estábamos comiendo en el restaurante.</div>
+                        <div class="english">We were eating at the restaurant.</div>
+                    </div>
+                    <div class="example-sentence">
+                        <div class="spanish">¿Qué estabas haciendo ayer a las cinco?</div>
+                        <div class="english">What were you doing yesterday at five?</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 10. Imperative -->
+            <section id="imperative" class="section imperative">
+                <h2 class="handwritten-title"><span class="emoji">❗</span>Imperative (Imperativo)</h2>
+                
+                <div class="rule-box handwritten">
+                    <strong>Use for:</strong> Commands, requests, instructions
+                </div>
+
+                <h3 class="handwritten-title">Affirmative Commands (Positive)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Person</th>
+                            <th>-AR (hablar)</th>
+                            <th>-ER (comer)</th>
+                            <th>-IR (vivir)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>tú</strong></td>
+                            <td>habla</td>
+                            <td>come</td>
+                            <td>vive</td>
+                        </tr>
+                        <tr>
+                            <td><strong>usted</strong></td>
+                            <td>hable</td>
+                            <td>coma</td>
+                            <td>viva</td>
+                        </tr>
+                        <tr>
+                            <td><strong>nosotros</strong></td>
+                            <td>hablemos</td>
+                            <td>comamos</td>
+                            <td>vivamos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>vosotros</strong></td>
+                            <td>hablad</td>
+                            <td>comed</td>
+                            <td>vivid</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ustedes</strong></td>
+                            <td>hablen</td>
+                            <td>coman</td>
+                            <td>vivan</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 class="handwritten-title">Negative Commands</h3>
+                <div class="rule-box handwritten">
+                    <strong>Formation:</strong> NO + present subjunctive
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Person</th>
+                            <th>-AR (hablar)</th>
+                            <th>-ER (comer)</th>
+                            <th>-IR (vivir)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>tú</strong></td>
+                            <td>no hables</td>
+                            <td>no comas</td>
+                            <td>no vivas</td>
+                        </tr>
+                        <tr>
+                            <td><strong>usted</strong></td>
+                            <td>no hable</td>
+                            <td>no coma</td>
+                            <td>no viva</td>
+                        </tr>
+                        <tr>
+                            <td><strong>nosotros</strong></td>
+                            <td>no hablemos</td>
+                            <td>no comamos</td>
+                            <td>no vivamos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>vosotros</strong></td>
+                            <td>no habléis</td>
+                            <td>no comáis</td>
+                            <td>no viváis</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ustedes</strong></td>
+                            <td>no hablen</td>
+                            <td>no coman</td>
+                            <td>no vivan</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="example-box">
+                    <h4>Example Sentences:</h4>
+                    <div class="example-sentence">
+                        <div class="spanish">¡Habla más alto!</div>
+                        <div class="english">Speak louder!</div>
+                    </div>
+                    <div class="example-sentence">
+                        <div class="spanish">Come tus verduras.</div>
+                        <div class="english">Eat your vegetables.</div>
+                    </div>
+                    <div class="example-sentence">
+                        <div class="spanish">No hables tan rápido.</div>
+                        <div class="english">Don't speak so fast.</div>
+                    </div>
+                    <div class="example-sentence">
+                        <div class="spanish">Vivamos el momento.</div>
+                        <div class="english">Let's live in the moment.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Reference Summary -->
+            <section id="summary" class="section summary">
+                <h2 class="handwritten-title"><span class="emoji">🎯</span>Quick Reference Summary</h2>
+                
+                <div class="rule-box handwritten">
+                    <strong>🕒 SIMPLE TENSES:</strong>
+                    <ul>
+                        <li><strong>Present:</strong> hablo, comes, vive</li>
+                        <li><strong>Preterite:</strong> hablé, comiste, vivió</li>
+                        <li><strong>Imperfect:</strong> hablaba, comías, vivía</li>
+                        <li><strong>Future:</strong> hablaré, comerás, vivirá</li>
+                        <li><strong>Conditional:</strong> hablaría, comerías, viviría</li>
+                    </ul>
+                </div>
+
+                <div class="rule-box handwritten">
+                    <strong>💭 SUBJUNCTIVE MOOD:</strong>
+                    <ul>
+                        <li><strong>Present Subjunctive:</strong> hable, comas, viva</li>
+                        <li><strong>Imperfect Subjunctive:</strong> hablara, comieras, viviera</li>
+                    </ul>
+                </div>
+
+                <div class="rule-box handwritten">
+                    <strong>✨ PERFECT TENSES (HABER + past participle):</strong>
+                    <ul>
+                        <li><strong>Present Perfect:</strong> he hablado, has comido, ha vivido</li>
+                        <li><strong>Past Perfect:</strong> había hablado, habías comido, había vivido</li>
+                        <li><strong>Future Perfect:</strong> habré hablado, habrás comido, habrá vivido</li>
+                        <li><strong>Conditional Perfect:</strong> habría hablado, habrías comido, habría vivido</li>
+                    </ul>
+                </div>
+
+                <div class="rule-box handwritten">
+                    <strong>🔄 PROGRESSIVE TENSES (ESTAR + present participle):</strong>
+                    <ul>
+                        <li><strong>Present Progressive:</strong> estoy hablando, estás comiendo, está viviendo</li>
+                        <li><strong>Past Progressive:</strong> estaba hablando, estabas comiendo, estaba viviendo</li>
+                    </ul>
+                </div>
+
+                <div class="rule-box handwritten">
+                    <strong>❗ IMPERATIVE (Commands):</strong>
+                    <ul>
+                        <li><strong>Positive tú:</strong> habla, come, vive</li>
+                        <li><strong>Negative tú:</strong> no hables, no comas, no vivas</li>
+                        <li><strong>Formal usted:</strong> hable, coma, viva</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <h3>🧠 Memory Tips</h3>
+                    <ul>
+                        <li><strong>Past participles:</strong> -AR → -ado, -ER/-IR → -ido</li>
+                        <li><strong>Present participles:</strong> -AR → -ando, -ER/-IR → -iendo</li>
+                        <li><strong>Subjunctive trick:</strong> Opposite endings! -AR verbs get -E endings, -ER/-IR get -A endings</li>
+                        <li><strong>Perfect = completed</strong> (HABER + past participle)</li>
+                        <li><strong>Progressive = ongoing</strong> (ESTAR + present participle)</li>
+                    </ul>
+                </div>
+
+                <div class="example-box">
+                    <h4>🎭 When to Use Each Tense:</h4>
+                    <div class="example-sentence">
+                        <div class="spanish"><strong>Present:</strong> Hablo español</div>
+                        <div class="english">I speak Spanish (habitual/general)</div>
+                    </div>
+                    <div class="example-sentence">
+                        <div class="spanish"><strong>Present Progressive:</strong> Estoy hablando</div>
+                        <div class="english">I am speaking (right now)</div>
+                    </div>
+                    <div class="example-sentence">
+                        <div class="spanish"><strong>Preterite:</strong> Hablé ayer</div>
+                        <div class="english">I spoke yesterday (completed action)</div>
+                    </div>
+                    <div class="example-sentence">
+                        <div class="spanish"><strong>Imperfect:</strong> Hablaba mucho</div>
+                        <div class="english">I used to speak a lot (habitual past)</div>
+                    </div>
+                    <div class="example-sentence">
+                        <div class="spanish"><strong>Present Perfect:</strong> He hablado</div>
+                        <div class="english">I have spoken (recent/relevant to now)</div>
+                    </div>
+                    <div class="example-sentence">
+                        <div class="spanish"><strong>Future:</strong> Hablaré mañana</div>
+                        <div class="english">I will speak tomorrow</div>
+                    </div>
+                    <div class="example-sentence">
+                        <div class="spanish"><strong>Conditional:</strong> Hablaría si pudiera</div>
+                        <div class="english">I would speak if I could</div>
+                    </div>
+                    <div class="example-sentence">
+                        <div class="spanish"><strong>Subjunctive:</strong> Espero que hables</div>
+                        <div class="english">I hope you speak (doubt/emotion/desire)</div>
+                    </div>
+                </div>
+
+                <div class="rule-box handwritten" style="text-align: center; font-size: 1.3em;">
+                    <strong>🎉 ¡Felicidades! You now have all 18 Spanish tenses! 🎉</strong>
+                    <br><br>
+                    <em>Practice makes perfect - ¡La práctica hace al maestro!</em>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('navMenu');
+            const overlay = document.querySelector('.menu-overlay');
+            const button = document.querySelector('.menu-button');
+            const content = document.querySelector('.content');
+            
+            if (menu && overlay && button && content) {
+                menu.classList.toggle('active');
+                overlay.classList.toggle('active');
+                button.classList.toggle('hidden');
+                
+                if (window.innerWidth > 768) {
+                    content.classList.toggle('shifted');
+                }
+            }
+        }
+
+        function closeMenu() {
+            const menu = document.getElementById('navMenu');
+            const overlay = document.querySelector('.menu-overlay');
+            const button = document.querySelector('.menu-button');
+            const content = document.querySelector('.content');
+            
+            if (menu && overlay && button && content) {
+                menu.classList.remove('active');
+                overlay.classList.remove('active');
+                button.classList.remove('hidden');
+                content.classList.remove('shifted');
+            }
+        }
+
+        window.addEventListener('resize', function() {
+            const content = document.querySelector('.content');
+            const menu = document.getElementById('navMenu');
+            
+            if (content && menu) {
+                if (window.innerWidth <= 768) {
+                    content.classList.remove('shifted');
+                } else if (menu.classList.contains('active')) {
+                    content.classList.add('shifted');
+                }
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Spanish Verb Guide loaded successfully
+        });
+    </script>
+</body>
+</html>
